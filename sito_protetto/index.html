@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sito Protetto</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginDiv">
+    <h2>Accesso al sito</h2>
+    <input type="password" id="password" placeholder="Inserisci la password">
+    <button onclick="login()">Accedi</button>
+    <p id="errorMsg" style="color:red;"></p>
+</div>
+
+<div id="contentDiv" style="display:none;">
+    <h1>Benvenuto!</h1>
+
+    <h2>Mini Chat</h2>
+    <div id="chatBox"></div>
+    <input type="text" id="chatInput" placeholder="Scrivi un messaggio">
+    <button onclick="sendMessage()">Invia</button>
+
+    <h2>App Thunkable</h2>
+    <a href="https://linkallatuaapp.thunkable.app" target="_blank">Apri App</a>
+
+    <h2>Note Condivise</h2>
+    <ul id="notesList">
+        <li>Nota 1: Ricorda di sorridere oggi!</li>
+        <li>Nota 2: Respira profondamente ogni tanto.</li>
+    </ul>
+
+    <h2>Cartacei Consegnati</h2>
+    <div id="cartacei">
+        <img src="images/foto1.jpg" alt="Foto 1" width="200">
+        <img src="images/foto2.jpg" alt="Foto 2" width="200">
+    </div>
+
+    <h2>Altro Sito GitHub</h2>
+    <a href="https://github.com/altroSito" target="_blank">Vai al sito</a>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
