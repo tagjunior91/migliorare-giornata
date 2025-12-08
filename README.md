@@ -1,5 +1,4 @@
-# migliorare-giornata
-
+<!doctype html>
 <html lang="it">
 <head>
   <meta charset="utf-8" />
@@ -69,11 +68,11 @@
 
     <div class="grid">
       <main>
-        <section class="card">
+        <section class="card" id="userChatSection">
           <h3>Mini chat di incoraggiamento</h3>
           <div id="chat" class="chat-window" aria-live="polite"></div>
           <div class="controls">
-            <input id="chatInput" type="text" placeholder="Scrivi qualcosa..." />
+            <input id="chatInput" type="text" placeholder="(Piccolo genio) Scrivi qualcosa..." />
             <button id="sendBtn">Invia</button>
           </div>
           <div class="small">La chat è locale e le conversazioni restano sul tuo browser (localStorage).</div>
@@ -108,8 +107,8 @@
         <section class="card">
           <h3>Link utili</h3>
           <div class="links">
-            <div><strong>App Thunkable:</strong> <a id="thunkLink" href="#" target="_blank">Apri app Thunkable</a></div>
-            <div><strong>Sito su GitHub:</strong> <a id="githubLink" href="#" target="_blank">Apri sito GitHub</a></div>
+            <div><strong>La tua app:</strong> <a id="thunkLink" href="#" target="_blank">Apri app Thunkable</a></div>
+            <div><strong>Sorpresa:</strong> <a id="githubLink" href="#" target="_blank">Apri sito GitHub</a></div>
           </div>
           <div style="margin-top:12px">
             <h4>Backup & Ripristino</h4>
@@ -137,169 +136,5 @@
 
   <script>
     /***** CONFIGURAZIONE (personalizza qui) *****/
-    const SITE_PASSWORD = localStorage.getItem('mg_password') || 'felice2025'; // cambiala prima di pubblicare
-    const THUNKABLE_URL = 'https://x.thunkable.com/copy/IL_TUO_LINK_APP';
-    const GITHUB_URL = 'https://yourusername.github.io/tuo-repo/';
-    const BOT_MESSAGES = [
-      "Respira profondamente — c'è ancora una piccola luce.",
-      "Hai superato giorni peggiori: oggi sei più forte di ieri.",
-      "Un piccolo gesto può cambiare la giornata: prova a fare qualcosa che ami.",
-      "Ricorda: anche i pensieri brutti passano. Sei resiliente."
-    ];
-    /*********************************************/
-
-    // inizializzazione link
-    document.getElementById('thunkLink').href = THUNKABLE_URL;
-    document.getElementById('githubLink').href = GITHUB_URL;
-
-    // password modal
-    const overlay = document.getElementById('pwOverlay');
-    const app = document.getElementById('app');
-    const pwInput = document.getElementById('pwInput');
-    document.getElementById('pwTry').addEventListener('click', tryPassword);
-    pwInput.addEventListener('keyup', (e)=>{ if(e.key==='Enter') tryPassword(); });
-    document.getElementById('pwReset').addEventListener('click', ()=>{ if(confirm('Reset locale (cancella tutte le note e documenti)?')){ localStorage.clear(); alert('Locale resettato. Ricarica la pagina.'); }});
-
-    function tryPassword(){
-      const p = pwInput.value;
-      if(!p) return alert('Inserisci la password');
-      if(p === SITE_PASSWORD){
-        overlay.style.display = 'none'; app.style.display = 'block';
-        loadAll();
-      } else {
-        alert('Password errata.');
-      }
-    }
-
-    // logout
-    document.getElementById('logout').addEventListener('click', ()=>{ overlay.style.display='flex'; app.style.display='none'; pwInput.value=''; });
-
-    /* CHAT */
-    const chatEl = document.getElementById('chat');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
-    sendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keyup', (e)=>{ if(e.key==='Enter') sendMessage(); });
-
-    function sendMessage(){
-      const text = chatInput.value.trim();
-      if(!text) return;
-      pushChat({who:'me',text,ts:Date.now()});
-      chatInput.value='';
-      // risposta automatica
-      setTimeout(()=>{
-        const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-        pushChat({who:'bot',text:r,ts:Date.now()});
-      }, 800 + Math.random()*800);
-    }
-
-    function pushChat(msg){
-      const arr = JSON.parse(localStorage.getItem('mg_chat')||'[]');
-      arr.push(msg); localStorage.setItem('mg_chat',JSON.stringify(arr));
-      renderChat();
-    }
-
-    function renderChat(){
-      const arr = JSON.parse(localStorage.getItem('mg_chat')||'[]');
-      chatEl.innerHTML='';
-      arr.forEach(m=>{
-        const d = document.createElement('div'); d.className='msg '+(m.who==='me'?'me':'bot'); d.textContent=m.text; chatEl.appendChild(d);
-      });
-      chatEl.scrollTop = chatEl.scrollHeight;
-    }
-
-    /* NOTE CONDIVISE */
-    const notesEl = document.getElementById('sharedNotes');
-    document.getElementById('saveNotes').addEventListener('click', ()=>{ localStorage.setItem('mg_notes', notesEl.value); alert('Note salvate localmente'); });
-    document.getElementById('copyLink').addEventListener('click', ()=>{
-      const text = notesEl.value || '';
-      const encoded = btoa(unescape(encodeURIComponent(text)));
-      const url = location.origin + location.pathname + '?shared=' + encoded;
-      navigator.clipboard.writeText(url).then(()=>alert('Link copiato negli appunti'));
-    });
-    document.getElementById('exportNotes').addEventListener('click', ()=>{ const data = {notes: notesEl.value}; downloadJSON(data,'notes.json'); });
-
-    // carica note da localStorage o da URL
-    function loadNotesFromURL(){
-      const params = new URLSearchParams(location.search);
-      if(params.has('shared')){
-        try{ const decoded = decodeURIComponent(escape(atob(params.get('shared')))); notesEl.value = decoded; }
-        catch(e){ console.warn('Impossibile decodificare shared'); }
-      }
-    }
-
-    /* DOCUMENTI CARTACEI */
-    const docsEl = document.getElementById('docs');
-    const fileInput = document.getElementById('fileInput');
-    const addTextDocBtn = document.getElementById('addTextDoc');
-    fileInput.addEventListener('change', handleFile);
-    addTextDocBtn.addEventListener('click', ()=>{
-      const t = prompt('Incolla il testo della lettera:'); if(!t) return;
-      addDoc({type:'letter',name:'lettera-'+Date.now(),text:t});
-    });
-
-    function handleFile(e){
-      const f = e.target.files[0]; if(!f) return;
-      const reader = new FileReader();
-      reader.onload = ()=>{ addDoc({type:'image',name:f.name,data:reader.result}); fileInput.value=''; };
-      reader.readAsDataURL(f);
-    }
-
-    function addDoc(doc){
-      const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.push(doc); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
-
-    function renderDocs(){
-      const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); docsEl.innerHTML='';
-      if(arr.length===0){ docsEl.innerHTML='<div class="small">Nessun documento aggiunto</div>'; return; }
-      arr.forEach((d,i)=>{
-        const wrapper = document.createElement('div'); wrapper.style.marginBottom='12px';
-        const meta = document.createElement('div'); meta.className='small'; meta.textContent = d.name + ' • ' + d.type;
-        wrapper.appendChild(meta);
-        if(d.type==='image'){
-          const img = document.createElement('img'); img.src = d.data; wrapper.appendChild(img);
-        } else {
-          const p = document.createElement('pre'); p.style.whiteSpace='pre-wrap'; p.textContent = d.text; wrapper.appendChild(p);
-        }
-        const btns = document.createElement('div'); btns.style.display='flex'; btns.style.gap='8px'; btns.style.marginTop='6px';
-        const dl = document.createElement('button'); dl.textContent='Scarica'; dl.addEventListener('click', ()=>{ if(d.type==='image') downloadDataURL(d.data,d.name); else downloadText(d.text,d.name+'.txt'); });
-        const del = document.createElement('button'); del.textContent='Elimina'; del.addEventListener('click', ()=>{ if(confirm('Eliminare?')){ removeDoc(i); }});
-        btns.appendChild(dl); btns.appendChild(del); wrapper.appendChild(btns);
-        docsEl.appendChild(wrapper);
-      });
-    }
-
-    function removeDoc(index){ const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.splice(index,1); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
-
-    /* BACKUP / EXPORT */
-    function downloadJSON(obj, filename){ const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
-    function downloadDataURL(dataURL, filename){ const a=document.createElement('a'); a.href=dataURL; a.download=filename; a.click(); }
-    function downloadText(txt, filename){ const blob = new Blob([txt],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
-
-    document.getElementById('backupBtn').addEventListener('click', ()=>{ const data = {notes: localStorage.getItem('mg_notes')||'', chat: JSON.parse(localStorage.getItem('mg_chat')||'[]'), docs: JSON.parse(localStorage.getItem('mg_docs')||'[]')}; downloadJSON(data,'migliora_backup.json'); });
-    document.getElementById('restoreFile').addEventListener('change',(e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const obj=JSON.parse(r.result); if(obj.notes) localStorage.setItem('mg_notes', obj.notes); if(obj.chat) localStorage.setItem('mg_chat', JSON.stringify(obj.chat)); if(obj.docs) localStorage.setItem('mg_docs', JSON.stringify(obj.docs)); alert('Ripristino completato. Ricarica la pagina.'); } catch(err){ alert('File non valido'); } }; r.readAsText(f); });
-    document.getElementById('exportDocs').addEventListener('click', ()=>{ const docs = JSON.parse(localStorage.getItem('mg_docs')||'[]'); downloadJSON(docs,'docs.json'); });
-
-    // restore backup download
-
-    /* CHEER BUTTON */
-    document.getElementById('cheerBtn').addEventListener('click', ()=>{ const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)]; document.getElementById('cheerArea').textContent = r; pushChat({who:'bot',text:r,ts:Date.now()}); });
-
-    /* UTIL */
-    function loadAll(){
-      renderChat();
-      notesEl.value = localStorage.getItem('mg_notes') || '';
-      renderDocs();
-      loadNotesFromURL();
-      document.getElementById('userInfo').textContent = 'Accesso: locale • password: ' + (SITE_PASSWORD ? 'impostata' : 'non impostata');
-    }
-
-    // restore password from prompt? allow setting
-    // scelta: se vuoi cambiare password, apri console e esegui localStorage.setItem('mg_password','nuova'); oppure implementare UI
-
-    // helper per copia
-    window.copyText = (t)=>navigator.clipboard.writeText(t);
-
-    // utility per import
-  </script>
-</body>
-</html>
+    const SITE_PASSWORD = localStorage.getItem('mg_password') || 'utente2025';
+    const ADMIN_PASSWORD = localStorage.getItem('mg_admin_password') || 'admin2025';
