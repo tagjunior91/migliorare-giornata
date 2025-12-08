@@ -5,71 +5,41 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sito "Migliora la giornata"</title>
 <style>
-  :root{--bg:#0f1724;--card:#0b1220;--accent:#ffd166;--muted:#9ca3af;color-scheme:dark}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:white;background:linear-gradient(180deg,#071226 0%,#041627 100%);min-height:100vh}
-  .container{max-width:980px;margin:32px auto;padding:20px}
-  .card{background:rgba(255,255,255,0.03);border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
-  header{display:flex;gap:12px;align-items:center}
-  header h1{margin:0;font-size:20px}
-  .muted{color:var(--muted);font-size:13px}
-  .links a{color:var(--accent);text-decoration:none}
-
-  /* CHAT */
-  .chat-window{height:300px;overflow:auto;padding:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:8px}
-  .msg{padding:8px 10px;border-radius:10px;margin-bottom:8px;max-width:78%}
-  .msg.me{background:linear-gradient(90deg,#1f2937,#111827);margin-left:auto}
-  .msg.bot{background:linear-gradient(90deg,#132f2f,#0b3a3a)}
-  .controls{display:flex;gap:8px;margin-top:8px}
-  .controls input[type=text]{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:white}
-
-  /* GENERALE */
-  button{background:var(--accent);border:none;padding:10px 12px;border-radius:8px;cursor:pointer}
-  .notes{display:flex;gap:12px;flex-wrap:wrap}
-  .notes textarea{flex:1;min-height:120px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:white}
-  .grid{display:grid;grid-template-columns:1fr 320px;gap:12px}
-  @media(max-width:880px){.grid{grid-template-columns:1fr} .container{margin:12px}}
-  .docs-list img{max-width:100%;border-radius:8px}
-  .small{font-size:13px;color:var(--muted)}
-  footer{display:flex;justify-content:space-between;align-items:center;gap:12px}
-  .topbar{display:flex;justify-content:space-between;align-items:center}
-  .pill{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px}
-
-  /* PASSWORD MODAL */
-  .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));backdrop-filter:blur(4px);z-index:999}
-  .pw-box{background:var(--card);padding:22px;border-radius:12px;max-width:420px;width:92%}
-  .pw-box input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:white}
-  .hint{font-size:13px;color:var(--muted);margin-top:8px}
-  .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
-  .danger{background:#ef4444}
-  .meta{font-size:12px;color:var(--muted)}
-
-  /* CHAT FLOTTANTE */
-  #chatContainer {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
-    width: 320px;
-    max-height: 400px;
-    display: none;
-    flex-direction: column;
-    z-index: 999;
-  }
-  #chatToggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1000;
-  }
-
+:root{--bg:#0f1724;--card:#0b1220;--accent:#ffd166;--muted:#9ca3af;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:white;background:linear-gradient(180deg,#071226 0%,#041627 100%);min-height:100vh}
+.container{max-width:980px;margin:32px auto;padding:20px}
+.card{background:rgba(255,255,255,0.03);border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+header{display:flex;gap:12px;align-items:center}
+header h1{margin:0;font-size:20px}
+.muted{color:var(--muted);font-size:13px}
+.links a{color:var(--accent);text-decoration:none}
+button{background:var(--accent);border:none;padding:10px 12px;border-radius:8px;cursor:pointer}
+.notes{display:flex;gap:12px;flex-wrap:wrap}
+.notes textarea{flex:1;min-height:120px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:white}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:12px}
+@media(max-width:880px){.grid{grid-template-columns:1fr} .container{margin:12px}}
+.docs-list img{max-width:100%;border-radius:8px}
+.small{font-size:13px;color:var(--muted)}
+footer{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.topbar{display:flex;justify-content:space-between;align-items:center}
+.pill{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px}
+.overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));backdrop-filter:blur(4px);z-index:999}
+.pw-box{background:var(--card);padding:22px;border-radius:12px;max-width:420px;width:92%}
+.pw-box input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:white}
+.hint{font-size:13px;color:var(--muted);margin-top:8px}
+.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.danger{background:#ef4444}
+.meta{font-size:12px;color:var(--muted)}
+.chat-window{height:300px;overflow:auto;padding:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:8px}
+.msg{padding:8px 10px;border-radius:10px;margin-bottom:8px;max-width:78%}
+.msg.me{background:linear-gradient(90deg,#1f2937,#111827);margin-left:auto}
+.msg.bot{background:linear-gradient(90deg,#132f2f,#0b3a3a)}
+.controls{display:flex;gap:8px;margin-top:8px}
+.controls input[type=text]{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:white}
+/* chat flottante */
+#chatContainer {position: fixed; bottom: 100px; right: 20px; width: 320px; max-height: 400px; display: none; flex-direction: column; z-index: 999;}
+#chatToggle {position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #000; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 24px; cursor: pointer; z-index: 1000;}
 </style>
 </head>
 <body>
@@ -175,6 +145,7 @@
 <button id="chatToggle">💬</button>
 
 <script>
+/***** CONFIGURAZIONE *****/
 const SITE_PASSWORD = localStorage.getItem('mg_password') || 'felice2025';
 const THUNKABLE_URL = 'https://x.thunkable.com/copy/IL_TUO_LINK_APP';
 const GITHUB_URL = 'https://yourusername.github.io/tuo-repo/';
@@ -184,17 +155,28 @@ const BOT_MESSAGES = [
   "Un piccolo gesto può cambiare la giornata: prova a fare qualcosa che ami.",
   "Ricorda: anche i pensieri brutti passano. Sei resiliente."
 ];
+/***************************/
 
 document.getElementById('thunkLink').href = THUNKABLE_URL;
 document.getElementById('githubLink').href = GITHUB_URL;
 
-// PASSWORD MODAL
+/* PASSWORD MODAL */
 const overlay = document.getElementById('pwOverlay');
 const app = document.getElementById('app');
 const pwInput = document.getElementById('pwInput');
 
+function tryPassword(){
+  const p = pwInput.value.trim();
+  if(!p) return alert('Inserisci la password');
+  if(p === SITE_PASSWORD){
+    overlay.style.display='none'; 
+    app.style.display='block';
+    loadAll();
+  } else { alert('Password errata'); }
+}
+
 document.getElementById('pwTry').addEventListener('click', tryPassword);
-pwInput.addEventListener('keyup', (e)=>{ if(e.key==='Enter') tryPassword(); });
+pwInput.addEventListener('keyup', e=>{ if(e.key==='Enter') tryPassword(); });
 document.getElementById('pwReset').addEventListener('click', ()=>{ 
   if(confirm('Reset locale (cancella tutte le note e documenti)?')){ 
     localStorage.clear(); 
@@ -202,39 +184,26 @@ document.getElementById('pwReset').addEventListener('click', ()=>{
   }
 });
 
-function tryPassword(){
-  const p = pwInput.value;
-  if(!p) return alert('Inserisci la password');
-  if(p === SITE_PASSWORD){
-    overlay.style.display='none'; 
-    app.style.display='block'; 
-    loadAll();
-  } else {
-    alert('Password errata.');
-  }
-}
-
-// LOGOUT
+/* LOGOUT */
 document.getElementById('logout').addEventListener('click', ()=>{
   overlay.style.display='flex'; app.style.display='none'; pwInput.value='';
 });
 
-// CHAT
-const chatEl = document.getElementById('chat');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
+/* CHAT */
+const chatEl=document.getElementById('chat');
+const chatInput=document.getElementById('chatInput');
+const sendBtn=document.getElementById('sendBtn');
+
 sendBtn.addEventListener('click', sendMessage);
-chatInput.addEventListener('keyup', (e)=>{ if(e.key==='Enter') sendMessage(); });
+chatInput.addEventListener('keyup', e=>{ if(e.key==='Enter') sendMessage(); });
 
 function sendMessage(){
-  const text = chatInput.value.trim();
-  if(!text) return;
-  pushChat({who:'me',text,ts:Date.now()});
-  chatInput.value='';
+  const text = chatInput.value.trim(); if(!text) return;
+  pushChat({who:'me',text,ts:Date.now()}); chatInput.value='';
   setTimeout(()=>{
-    const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
+    const r=BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
     pushChat({who:'bot',text:r,ts:Date.now()});
-  }, 800 + Math.random()*800);
+  },800 + Math.random()*800);
 }
 
 function pushChat(msg){
@@ -248,97 +217,75 @@ function renderChat(){
   chatEl.innerHTML='';
   arr.forEach(m=>{
     const d=document.createElement('div');
-    d.className='msg '+(m.who==='me'?'me':'bot');
-    d.textContent = m.text;
+    d.className='msg '+(m.who==='me'?'me':'bot'); d.textContent=m.text;
     chatEl.appendChild(d);
   });
   chatEl.scrollTop = chatEl.scrollHeight;
 }
 
-// CHAT FLOTTANTE BUTTON
-const chatToggle = document.getElementById('chatToggle');
-const chatContainer = document.getElementById('chatContainer');
+/* CHAT FLOTTANTE TOGGLE */
+const chatToggle=document.getElementById('chatToggle');
+const chatContainer=document.getElementById('chatContainer');
 chatToggle.addEventListener('click', ()=>{
   chatContainer.style.display = chatContainer.style.display==='flex' ? 'none' : 'flex';
 });
 
-// NOTE, DOCS, CHEER
-const notesEl = document.getElementById('sharedNotes');
-document.getElementById('saveNotes').addEventListener('click', ()=>{ 
-  localStorage.setItem('mg_notes', notesEl.value); 
-  alert('Note salvate localmente'); 
-});
+/* NOTE, DOCS, CHEER */
+const notesEl=document.getElementById('sharedNotes');
+document.getElementById('saveNotes').addEventListener('click', ()=>{ localStorage.setItem('mg_notes', notesEl.value); alert('Note salvate'); });
 document.getElementById('copyLink').addEventListener('click', ()=>{
-  const text = notesEl.value || '';
-  const encoded = btoa(unescape(encodeURIComponent(text)));
-  const url = location.origin + location.pathname + '?shared=' + encoded;
-  navigator.clipboard.writeText(url).then(()=>alert('Link copiato negli appunti'));
+  const text=notesEl.value||'';
+  const encoded=btoa(unescape(encodeURIComponent(text)));
+  const url=location.origin+location.pathname+'?shared='+encoded;
+  navigator.clipboard.writeText(url).then(()=>alert('Link copiato'));
 });
-document.getElementById('exportNotes').addEventListener('click', ()=>{ 
-  const data = {notes: notesEl.value}; downloadJSON(data,'notes.json'); 
-});
+document.getElementById('exportNotes').addEventListener('click', ()=>{ downloadJSON({notes:notesEl.value},'notes.json'); });
 
 function loadNotesFromURL(){
-  const params = new URLSearchParams(location.search);
-  if(params.has('shared')){
-    try{ const decoded = decodeURIComponent(escape(atob(params.get('shared')))); notesEl.value = decoded; }
-    catch(e){ console.warn('Impossibile decodificare shared'); }
+  const params=new URLSearchParams(location.search);
+  if(params.has('shared')){ 
+    try{ notesEl.value=decodeURIComponent(escape(atob(params.get('shared')))); } 
+    catch(e){ console.warn('Impossibile decodificare shared'); } 
   }
 }
 
-// DOCUMENTI
-const docsEl = document.getElementById('docs');
-const fileInput = document.getElementById('fileInput');
-const addTextDocBtn = document.getElementById('addTextDoc');
+/* DOCUMENTI */
+const docsEl=document.getElementById('docs');
+const fileInput=document.getElementById('fileInput');
+const addTextDocBtn=document.getElementById('addTextDoc');
 fileInput.addEventListener('change', handleFile);
 addTextDocBtn.addEventListener('click', ()=>{
-  const t = prompt('Incolla il testo della lettera:'); 
-  if(!t) return;
+  const t=prompt('Incolla il testo della lettera:'); if(!t) return;
   addDoc({type:'letter',name:'lettera-'+Date.now(),text:t});
 });
 
-function handleFile(e){ 
-  const f = e.target.files[0]; 
-  if(!f) return; 
-  const reader = new FileReader(); 
-  reader.onload = ()=>{ addDoc({type:'image',name:f.name,data:reader.result}); fileInput.value=''; }; 
-  reader.readAsDataURL(f); 
-}
-function addDoc(doc){ 
-  const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); 
-  arr.push(doc); 
-  localStorage.setItem('mg_docs',JSON.stringify(arr)); 
-  renderDocs(); 
-}
-function renderDocs(){ 
-  const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); 
-  docsEl.innerHTML='';
-  if(arr.length===0){ docsEl.innerHTML='<div class="small">Nessun documento aggiunto</div>'; return; }
-  arr.forEach((d,i)=>{
-    const wrapper=document.createElement('div'); wrapper.style.marginBottom='12px';
-    const meta=document.createElement('div'); meta.className='small'; meta.textContent=d.name+' • '+d.type; wrapper.appendChild(meta);
-    if(d.type==='image'){ const img=document.createElement('img'); img.src=d.data; wrapper.appendChild(img);}
-    else { const p=document.createElement('pre'); p.style.whiteSpace='pre-wrap'; p.textContent=d.text; wrapper.appendChild(p);}
-    const btns=document.createElement('div'); btns.style.display='flex'; btns.style.gap='8px'; btns.style.marginTop='6px';
-    const dl=document.createElement('button'); dl.textContent='Scarica'; 
-    dl.addEventListener('click', ()=>{ if(d.type==='image') downloadDataURL(d.data,d.name); else downloadText(d.text,d.name+'.txt'); });
-    const del=document.createElement('button'); del.textContent='Elimina';
-    del.addEventListener('click', ()=>{ if(confirm('Eliminare?')) removeDoc(i); });
-    btns.appendChild(dl); btns.appendChild(del); wrapper.appendChild(btns); docsEl.appendChild(wrapper);
-  });
-}
-function removeDoc(index){ const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.splice(index,1); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
+function handleFile(e){ const f=e.target.files[0]; if(!f) return; const reader=new FileReader(); reader.onload=()=>{ addDoc({type:'image',name:f.name,data:reader.result}); fileInput.value=''; }; reader.readAsDataURL(f); }
+function addDoc(doc){ const arr=JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.push(doc); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
+function renderDocs(){ const arr=JSON.parse(localStorage.getItem('mg_docs')||'[]'); docsEl.innerHTML=''; if(arr.length===0){ docsEl.innerHTML='<div class="small">Nessun documento aggiunto</div>'; return; } arr.forEach((d,i)=>{ const wrapper=document.createElement('div'); wrapper.style.marginBottom='12px'; const meta=document.createElement('div'); meta.className='small'; meta.textContent=d.name+' • '+d.type; wrapper.appendChild(meta); if(d.type==='image'){ const img=document.createElement('img'); img.src=d.data; wrapper.appendChild(img);} else { const p=document.createElement('pre'); p.style.whiteSpace='pre-wrap'; p.textContent=d.text; wrapper.appendChild(p);} const btns=document.createElement('div'); btns.style.display='flex'; btns.style.gap='8px'; btns.style.marginTop='6px'; const dl=document.createElement('button'); dl.textContent='Scarica'; dl.addEventListener('click', ()=>{ if(d.type==='image') downloadDataURL(d.data,d.name); else downloadText(d.text,d.name+'.txt'); }); const del=document.createElement('button'); del.textContent='Elimina'; del.addEventListener('click', ()=>{ if(confirm('Eliminare?')) removeDoc(i); }); btns.appendChild(dl); btns.appendChild(del); wrapper.appendChild(btns); docsEl.appendChild(wrapper); }); }
+function removeDoc(i){ const arr=JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.splice(i,1); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
 
-// BACKUP / EXPORT
-function downloadJSON(obj, filename){ const blob = new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url);}
-function downloadDataURL(dataURL, filename){ const a=document.createElement('a'); a.href=dataURL; a.download=filename; a.click();}
-function downloadText(txt, filename){ const blob = new Blob([txt],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url);}
+/* BACKUP / EXPORT */
+function downloadJSON(obj,filename){ const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click(); }
+function downloadDataURL(dataURL,filename){ const a=document.createElement('a'); a.href=dataURL; a.download=filename; a.click(); }
+function downloadText(txt,filename){ const blob=new Blob([txt],{type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click(); }
 
 document.getElementById('backupBtn').addEventListener('click', ()=>{ 
-  const data = {notes: localStorage.getItem('mg_notes')||'', chat: JSON.parse(localStorage.getItem('mg_chat')||'[]'), docs: JSON.parse(localStorage.getItem('mg_docs')||'[]')}; 
-  downloadJSON(data,'migliora_backup.json'); 
+  downloadJSON({
+    notes: localStorage.getItem('mg_notes')||'',
+    chat: JSON.parse(localStorage.getItem('mg_chat')||'[]'),
+    docs: JSON.parse(localStorage.getItem('mg_docs')||'[]')
+  },'migliora_backup.json'); 
 });
+
 document.getElementById('restoreFile').addEventListener('change',(e)=>{ 
-  const f=e.target.files[0]; 
-  if(!f) return; 
-  const r=new FileReader
+  const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const obj=JSON.parse(r.result); if(obj.notes) localStorage.setItem('mg_notes',obj.notes); if(obj.chat) localStorage.setItem('mg_chat',JSON.stringify(obj.chat)); if(obj.docs) localStorage.setItem('mg_docs',JSON.stringify(obj.docs)); alert('Ripristino completato. Ricarica la pagina.'); }catch(err){alert('File non valido');} }; r.readAsText(f);
+});
+
+/* CHEER */
+document.getElementById('cheerBtn').addEventListener('click', ()=>{ 
+  const r=BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
+  document.getElementById('cheerArea').textContent=r;
+  pushChat({who:'bot',text:r,ts:Date.now()});
+});
+
+/* LOAD ALL
