@@ -140,10 +140,7 @@
     const THUNKABLE_URL = 'https://x.thunkable.com/copy/IL_TUO_LINK_APP';
     const GITHUB_URL = 'https://tagjunior91.github.io/Sorpresa/';
     const BOT_MESSAGES = [
-      "Respira profondamente — c'è ancora una piccola luce.",
-      "Hai superato giorni peggiori: oggi sei più forte di ieri.",
-      "Un piccolo gesto può cambiare la giornata: prova a fare qualcosa che ami.",
-      "Ricorda: anche i pensieri brutti passano. Sei resiliente."
+    
     ];
     /*********************************************/
 
