@@ -150,3 +150,64 @@ emergenzaButton.addEventListener('click', () => {
     else alert('Scelta non valida');
 });
 </script>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Sito Migliora la Giornata</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#111; color:#fff; padding:20px; }
+    .box { background:#222; padding:20px; border-radius:10px; max-width:500px; margin:auto; }
+    input, button { padding:10px; margin-top:10px; width:100%; }
+    #app { display:none; }
+    #emergenzaButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: red;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box" id="loginBox">
+  <h2>Inserisci password</h2>
+  <input type="password" id="pw" placeholder="Password">
+  <button onclick="login()">Entra</button>
+</div>
+
+<div id="app">
+  <h1>Benvenuto 🌟</h1>
+  <p>Sito attivo correttamente</p>
+</div>
+
+<button id="emergenzaButton" onclick="emergenza()">🆘 Emergenza</button>
+
+<script>
+  const USER_PW = "utente2025";
+  const ADMIN_PW = "admin2025";
+
+  function login() {
+    const pw = document.getElementById("pw").value;
+    if (pw === USER_PW || pw === ADMIN_PW) {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("app").style.display = "block";
+    } else {
+      alert("Password sbagliata");
+    }
+  }
+
+  function emergenza() {
+    const scelta = prompt("Emergenza! 1 = Ginseng | 2 = Chiama | 3 = Crêpes");
+    if (scelta === "1") alert("Prendi Ginseng!");
+    else if (scelta === "2") alert("Chiama qualcuno!");
+    else if (scelta === "3") alert("Ordina una crêpes!");
+  }
+</script>
+
+</body>
+</html>
