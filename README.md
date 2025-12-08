@@ -138,3 +138,15 @@
     /***** CONFIGURAZIONE (personalizza qui) *****/
     const SITE_PASSWORD = localStorage.getItem('mg_password') || 'utente2025';
     const ADMIN_PASSWORD = localStorage.getItem('mg_admin_password') || 'admin2025';
+    <button id="emergenzaButton" style="position: fixed; bottom: 20px; right: 20px; background-color: red; color: white; padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer; z-index: 1000;">🆘 Emergenza</button>
+
+<script>
+const emergenzaButton = document.getElementById('emergenzaButton');
+emergenzaButton.addEventListener('click', () => {
+    const scelta = prompt('Emergenza! Scegli: 1=Ginseng, 2=Chiama, 3=Crêpes');
+    if(scelta === '1') alert('Prendi Ginseng!');
+    else if(scelta === '2') alert('Chiama qualcuno!');
+    else if(scelta === '3') alert('Ordina una crêpes!');
+    else alert('Scelta non valida');
+});
+</script>
