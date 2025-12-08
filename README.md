@@ -1,3 +1,36 @@
 !DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sito Protetto</title><link rel="stylesheet" href="style.css"></head><body><div id="loginDiv">    <h2>Accesso al sito</h2>    <input type="password" id="password" placeholder="Inserisci la password">    <button onclick="login()">Accedi</button>    <p id="errorMsg" style="color:red;"></p></div><div id="contentDiv" style="display:none;">    <h1>Benvenuto!</h1>    <h2>Mini Chat</h2>    <div id="chatBox"></div>    <input type="text" id="chatInput" placeholder="Scrivi un messaggio">    <button onclick="sendMessage()">Invia</button>    <h2>App Thunkable</h2>    <a href="https://linkallatuaapp.thunkable.app" target="_blank">Apri App</a>    <h2>Note Condivise</h2>    <ul id="notesList">        <li>Nota 1: Ricorda di sorridere oggi!</li>        <li>Nota 2: Respira profondamente ogni tanto.</li>    </ul>    <h2>Cartacei Consegnati</h2>    <div id="cartacei">        <img src="images/foto1.jpg" alt="Foto 1" width="200">        <img src="images/foto2.jpg" alt="Foto 2" width="200">    </div>    <h2>Altro Sito GitHub</h2>    <a href="https://github.com/altroSito" target="_blank">Vai al sito</a></div><script src="main.js"></script></body></html>
 Collapse file‎sito_protetto/main.js‎Copy file name to clipboard+33Lines changed: 33 additions & 0 deletionsOriginal file line numberDiff line numberDiff line change@@ -0,0 +1,33 @@const adminPassword = "admin123"; // Cambia con la tua passwordconst userPassword = "user123";   // Cambia con la tua passwordfunction login() {    const password = document.getElementById("password").value;    const errorMsg = document.getElementById("errorMsg");    if(password === adminPassword) {        document.getElementById("loginDiv").style.display = "none";        document.getElementById("contentDiv").style.display = "block";        alert("Accesso come Amministratore");    } else if(password === userPassword) {        document.getElementById("loginDiv").style.display = "none";        document.getElementById("contentDiv").style.display = "block";        alert("Accesso come Utente");    } else {        errorMsg.textContent = "Password errata!";    }}// Mini chat base (salvataggio locale)function sendMessage() {    const input = document.getElementById("chatInput");    const chatBox = document.getElementById("chatBox");    if(input.value.trim() !== "") {        const msg = document.createElement("div");        msg.textContent = input.value;        msg.className = "chatMessage";        chatBox.appendChild(msg);        input.value = "";        chatBox.scrollTop = chatBox.scrollHeight;    }}
 Collapse file‎sito_protetto/style.css‎Copy file name to clipboard+36Lines changed: 36 additions & 0 deletionsOriginal file line numberDiff line numberDiff line change@@ -0,0 +1,36 @@body {    font-family: Arial, sans-serif;    text-align: center;    margin: 20px;    background-color: #f9f9f9;}h1, h2 {    color: #333;}input, button {    padding: 5px 10px;    margin: 5px;    font-size: 16px;}#chatBox {    border: 1px solid #ccc;    height: 200px;    overflow-y: scroll;    padding: 5px;    margin-bottom: 5px;    background-color: #fff;    text-align: left;}.chatMessage {    border-bottom: 1px solid #eee;    padding: 3px;}#cartacei img {    margin: 5px;    border: 1px solid #ccc;}
+const adminPassword = "admin123"; // Cambia con la tua password
+const userPassword = "user123";   // Cambia con la tua password
+
+function login() {
+    const password = document.getElementById("password").value;
+    const errorMsg = document.getElementById("errorMsg");
+
+    if(password === adminPassword) {
+        document.getElementById("loginDiv").style.display = "none";
+        document.getElementById("contentDiv").style.display = "block";
+        alert("Accesso come Amministratore");
+    } else if(password === userPassword) {
+        document.getElementById("loginDiv").style.display = "none";
+        document.getElementById("contentDiv").style.display = "block";
+        alert("Accesso come Utente");
+    } else {
+        errorMsg.textContent = "Password errata!";
+    }
+}
+
+// Mini chat base (salvataggio locale)
+function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const chatBox = document.getElementById("chatBox");
+    if(input.value.trim() !== "") {
+        const msg = document.createElement("div");
+        msg.textContent = input.value;
+        msg.className = "chatMessage";
+        chatBox.appendChild(msg);
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+}
