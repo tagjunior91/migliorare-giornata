@@ -93,8 +93,8 @@
 <button class="emergenza" onclick="emergenza()">🚨 EMERGENZA</button>
 
 <script>
-  const userPass = "1234";
-  const adminPass = "admin123";
+  const userPass = "0000";
+  const adminPass = "1111";
 
   function login() {
     let p = document.getElementById("pass").value;
