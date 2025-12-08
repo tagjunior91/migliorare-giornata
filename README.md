@@ -39,12 +39,41 @@
     .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
     .danger{background:#ef4444}
     .meta{font-size:12px;color:var(--muted)}
+
+    /* CHAT FLOTTANTE */
+    #chatContainer {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 320px;
+      max-height: 400px;
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    /* Pulsante flottante */
+    #chatToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
   </style>
 </head>
 <body>
   <div id="pwOverlay" class="overlay">
     <div class="pw-box card">
-      <h2>Benvenuta — inserisci la password</h2>
+      <h2>Benvenuto — inserisci la password</h2>
       <input id="pwInput" type="password" placeholder="Password" />
       <div class="hint">Questa è una protezione lato client: per la produzione usa autenticazione reale.</div>
       <div class="actions">
@@ -68,15 +97,18 @@
 
     <div class="grid">
       <main>
-        <section class="card">
-          <h3>Mini chat di incoraggiamento</h3>
-          <div id="chat" class="chat-window" aria-live="polite"></div>
-          <div class="controls">
-            <input id="chatInput" type="text" placeholder="Scrivi qualcosa..." />
-            <button id="sendBtn">Invia</button>
-          </div>
-          <div class="small">La chat è locale e le conversazioni restano sul tuo browser (localStorage).</div>
-        </section>
+        <!-- Chat contenitore -->
+        <div id="chatContainer">
+          <section class="card">
+            <h3>Mini chat di incoraggiamento</h3>
+            <div id="chat" class="chat-window" aria-live="polite"></div>
+            <div class="controls">
+              <input id="chatInput" type="text" placeholder="Scrivi qualcosa..." />
+              <button id="sendBtn">Invia</button>
+            </div>
+            <div class="small">La chat è locale e le conversazioni restano sul tuo browser (localStorage).</div>
+          </section>
+        </div>
 
         <section class="card">
           <h3>Note condivise</h3>
@@ -134,17 +166,23 @@
     </footer>
   </div>
 
+  <!-- Pulsante flottante per chat -->
+  <button id="chatToggle">💬</button>
+
   <script>
     /***** CONFIGURAZIONE (personalizza qui) *****/
-    const SITE_PASSWORD = localStorage.getItem('mg_password') || '26071989'; // cambiala prima di pubblicare
+    const SITE_PASSWORD = localStorage.getItem('mg_password') || 'felice2025';
     const THUNKABLE_URL = 'https://x.thunkable.com/copy/IL_TUO_LINK_APP';
-    const GITHUB_URL = 'https://tagjunior91.github.io/Sorpresa/';
+    const GITHUB_URL = 'https://yourusername.github.io/tuo-repo/';
     const BOT_MESSAGES = [
-    
+      "Respira profondamente — c'è ancora una piccola luce.",
+      "Hai superato giorni peggiori: oggi sei più forte di ieri.",
+      "Un piccolo gesto può cambiare la giornata: prova a fare qualcosa che ami.",
+      "Ricorda: anche i pensieri brutti passano. Sei resiliente."
     ];
     /*********************************************/
 
-    // inizializzazione link
+    // link
     document.getElementById('thunkLink').href = THUNKABLE_URL;
     document.getElementById('githubLink').href = GITHUB_URL;
 
@@ -182,7 +220,6 @@
       if(!text) return;
       pushChat({who:'me',text,ts:Date.now()});
       chatInput.value='';
-      // risposta automatica
       setTimeout(()=>{
         const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
         pushChat({who:'bot',text:r,ts:Date.now()});
@@ -204,7 +241,14 @@
       chatEl.scrollTop = chatEl.scrollHeight;
     }
 
-    /* NOTE CONDIVISE */
+    /* CHAT FLOTTANTE BUTTON */
+    const chatToggle = document.getElementById('chatToggle');
+    const chatContainer = document.getElementById('chatContainer');
+    chatToggle.addEventListener('click', ()=>{
+      chatContainer.style.display = chatContainer.style.display==='flex' ? 'none' : 'flex';
+    });
+
+    /* NOTE, DOCUMENTI e CHEER (resta invariato) */
     const notesEl = document.getElementById('sharedNotes');
     document.getElementById('saveNotes').addEventListener('click', ()=>{ localStorage.setItem('mg_notes', notesEl.value); alert('Note salvate localmente'); });
     document.getElementById('copyLink').addEventListener('click', ()=>{
@@ -215,7 +259,6 @@
     });
     document.getElementById('exportNotes').addEventListener('click', ()=>{ const data = {notes: notesEl.value}; downloadJSON(data,'notes.json'); });
 
-    // carica note da localStorage o da URL
     function loadNotesFromURL(){
       const params = new URLSearchParams(location.search);
       if(params.has('shared')){
@@ -224,7 +267,6 @@
       }
     }
 
-    /* DOCUMENTI CARTACEI */
     const docsEl = document.getElementById('docs');
     const fileInput = document.getElementById('fileInput');
     const addTextDocBtn = document.getElementById('addTextDoc');
@@ -234,68 +276,11 @@
       addDoc({type:'letter',name:'lettera-'+Date.now(),text:t});
     });
 
-    function handleFile(e){
-      const f = e.target.files[0]; if(!f) return;
-      const reader = new FileReader();
-      reader.onload = ()=>{ addDoc({type:'image',name:f.name,data:reader.result}); fileInput.value=''; };
-      reader.readAsDataURL(f);
-    }
-
-    function addDoc(doc){
-      const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.push(doc); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
-
-    function renderDocs(){
-      const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); docsEl.innerHTML='';
-      if(arr.length===0){ docsEl.innerHTML='<div class="small">Nessun documento aggiunto</div>'; return; }
-      arr.forEach((d,i)=>{
-        const wrapper = document.createElement('div'); wrapper.style.marginBottom='12px';
-        const meta = document.createElement('div'); meta.className='small'; meta.textContent = d.name + ' • ' + d.type;
-        wrapper.appendChild(meta);
-        if(d.type==='image'){
-          const img = document.createElement('img'); img.src = d.data; wrapper.appendChild(img);
-        } else {
-          const p = document.createElement('pre'); p.style.whiteSpace='pre-wrap'; p.textContent = d.text; wrapper.appendChild(p);
-        }
-        const btns = document.createElement('div'); btns.style.display='flex'; btns.style.gap='8px'; btns.style.marginTop='6px';
-        const dl = document.createElement('button'); dl.textContent='Scarica'; dl.addEventListener('click', ()=>{ if(d.type==='image') downloadDataURL(d.data,d.name); else downloadText(d.text,d.name+'.txt'); });
-        const del = document.createElement('button'); del.textContent='Elimina'; del.addEventListener('click', ()=>{ if(confirm('Eliminare?')){ removeDoc(i); }});
-        btns.appendChild(dl); btns.appendChild(del); wrapper.appendChild(btns);
-        docsEl.appendChild(wrapper);
-      });
-    }
-
+    function handleFile(e){ const f = e.target.files[0]; if(!f) return; const reader = new FileReader(); reader.onload = ()=>{ addDoc({type:'image',name:f.name,data:reader.result}); fileInput.value=''; }; reader.readAsDataURL(f); }
+    function addDoc(doc){ const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.push(doc); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
+    function renderDocs(){ const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); docsEl.innerHTML=''; if(arr.length===0){ docsEl.innerHTML='<div class="small">Nessun documento aggiunto</div>'; return; } arr.forEach((d,i)=>{ const wrapper = document.createElement('div'); wrapper.style.marginBottom='12px'; const meta = document.createElement('div'); meta.className='small'; meta.textContent = d.name + ' • ' + d.type; wrapper.appendChild(meta); if(d.type==='image'){ const img = document.createElement('img'); img.src = d.data; wrapper.appendChild(img); } else { const p = document.createElement('pre'); p.style.whiteSpace='pre-wrap'; p.textContent = d.text; wrapper.appendChild(p); } const btns = document.createElement('div'); btns.style.display='flex'; btns.style.gap='8px'; btns.style.marginTop='6px'; const dl = document.createElement('button'); dl.textContent='Scarica'; dl.addEventListener('click', ()=>{ if(d.type==='image') downloadDataURL(d.data,d.name); else downloadText(d.text,d.name+'.txt'); }); const del = document.createElement('button'); del.textContent='Elimina'; del.addEventListener('click', ()=>{ if(confirm('Eliminare?')){ removeDoc(i); }}); btns.appendChild(dl); btns.appendChild(del); wrapper.appendChild(btns); docsEl.appendChild(wrapper); }); }
     function removeDoc(index){ const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.splice(index,1); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); }
 
-    /* BACKUP / EXPORT */
     function downloadJSON(obj, filename){ const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
     function downloadDataURL(dataURL, filename){ const a=document.createElement('a'); a.href=dataURL; a.download=filename; a.click(); }
-    function downloadText(txt, filename){ const blob = new Blob([txt],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
-
-    document.getElementById('backupBtn').addEventListener('click', ()=>{ const data = {notes: localStorage.getItem('mg_notes')||'', chat: JSON.parse(localStorage.getItem('mg_chat')||'[]'), docs: JSON.parse(localStorage.getItem('mg_docs')||'[]')}; downloadJSON(data,'migliora_backup.json'); });
-    document.getElementById('restoreFile').addEventListener('change',(e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const obj=JSON.parse(r.result); if(obj.notes) localStorage.setItem('mg_notes', obj.notes); if(obj.chat) localStorage.setItem('mg_chat', JSON.stringify(obj.chat)); if(obj.docs) localStorage.setItem('mg_docs', JSON.stringify(obj.docs)); alert('Ripristino completato. Ricarica la pagina.'); } catch(err){ alert('File non valido'); } }; r.readAsText(f); });
-    document.getElementById('exportDocs').addEventListener('click', ()=>{ const docs = JSON.parse(localStorage.getItem('mg_docs')||'[]'); downloadJSON(docs,'docs.json'); });
-
-    // restore backup download
-
-    /* CHEER BUTTON */
-    document.getElementById('cheerBtn').addEventListener('click', ()=>{ const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)]; document.getElementById('cheerArea').textContent = r; pushChat({who:'bot',text:r,ts:Date.now()}); });
-
-    /* UTIL */
-    function loadAll(){
-      renderChat();
-      notesEl.value = localStorage.getItem('mg_notes') || '';
-      renderDocs();
-      loadNotesFromURL();
-      document.getElementById('userInfo').textContent = 'Accesso: locale • password: ' + (SITE_PASSWORD ? 'impostata' : 'non impostata');
-    }
-
-    // restore password from prompt? allow setting
-    // scelta: se vuoi cambiare password, apri console e esegui localStorage.setItem('mg_password','nuova'); oppure implementare UI
-
-    // helper per copia
-    window.copyText = (t)=>navigator.clipboard.writeText(t);
-
-    // utility per import
-  </script>
-</body>
-</html>
+    function downloadText(txt, filename){ const blob = new Blob([txt],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url
