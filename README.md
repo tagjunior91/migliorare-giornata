@@ -44,7 +44,7 @@
 <body>
   <div id="pwOverlay" class="overlay">
     <div class="pw-box card">
-      <h2>Benvenuto — inserisci la password</h2>
+      <h2>Benvenuta — inserisci la password</h2>
       <input id="pwInput" type="password" placeholder="Password" />
       <div class="hint">Questa è una protezione lato client: per la produzione usa autenticazione reale.</div>
       <div class="actions">
