@@ -1,119 +1,125 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Il tuo spazio speciale</title>
+  <title>Sito Privato</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #0f1724;
+      background: #111;
       color: white;
       text-align: center;
+      padding: 20px;
     }
-
     .box {
-      background: #111827;
-      padding: 30px;
       max-width: 400px;
-      margin: 100px auto;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      margin: auto;
+      padding: 20px;
+      background: #222;
+      border-radius: 12px;
     }
-
-    input, button {
+    input, button, textarea {
       width: 100%;
       padding: 12px;
-      margin-top: 10px;
+      margin: 10px 0;
       border-radius: 8px;
       border: none;
       font-size: 16px;
     }
-
     button {
-      background: #facc15;
-      cursor: pointer;
+      background: gold;
+      color: black;
       font-weight: bold;
+      cursor: pointer;
     }
-
-    #app {
+    .hidden {
       display: none;
-      padding: 20px;
     }
-
-    #emergenzaBtn {
+    .admin {
+      background: #333;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    .emergenza {
       position: fixed;
       bottom: 20px;
-      right: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       background: red;
       color: white;
       border: none;
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 16px;
-      cursor: pointer;
-      display: none;
-    }
-
-    .linkbox {
-      margin-top: 20px;
-    }
-
-    a {
-      color: #facc15;
-      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 50px;
       font-size: 18px;
-      display: block;
-      margin: 10px 0;
+      font-weight: bold;
+    }
+    .cartacei {
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
 
 <div class="box" id="loginBox">
-  <h2>🔐 Inserisci password</h2>
-  <input type="password" id="password" placeholder="Scrivi la password">
+  <h2>Accesso Riservato</h2>
+  <input type="password" id="pass" placeholder="Inserisci password">
   <button onclick="login()">Entra</button>
 </div>
 
-<div id="app">
-  <h1>🎉 Sei dentro!</h1>
-  <p>Il tuo spazio è attivo e funzionante.</p>
+<div class="box hidden" id="userBox">
+  <h2>Benvenuto</h2>
+  <button onclick="openLink('https://thunkable.com')">La tua app</button>
+  <button onclick="openLink('https://github.com')">Sorpresa</button>
+  
+  <div class="admin">
+    <h3>Chat con Piccolo genio</h3>
+    <textarea id="msg" placeholder="Scrivi qui..."></textarea>
+    <button onclick="sendMsg()">Invia</button>
+    <div id="chat"></div>
+  </div>
 
-  <div class="linkbox">
-    <a href="#" onclick="alert('La tua app')">👉 La tua app</a>
-    <a href="#" onclick="alert('Sorpresa')">🎁 Sorpresa</a>
+  <div class="cartacei">
+    <h3>Cartacei consegnati</h3>
+    <p>Nessun documento ancora</p>
   </div>
 </div>
 
-<button id="emergenzaBtn" onclick="emergenza()">🆘 Emergenza</button>
+<button class="emergenza" onclick="emergenza()">🚨 EMERGENZA</button>
 
 <script>
-  const USER_PASSWORD = "utente2025";
-  const ADMIN_PASSWORD = "admin2025";
+  const userPass = "1234";
+  const adminPass = "admin123";
 
   function login() {
-    const pw = document.getElementById("password").value;
-
-    if (pw === USER_PASSWORD || pw === ADMIN_PASSWORD) {
-      document.getElementById("loginBox").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      document.getElementById("emergenzaBtn").style.display = "block";
+    let p = document.getElementById("pass").value;
+    if (p === userPass || p === adminPass) {
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("userBox").classList.remove("hidden");
     } else {
-      alert("Password sbagliata");
+      alert("Password errata");
+    }
+  }
+
+  function openLink(url) {
+    window.open(url, "_blank");
+  }
+
+  function sendMsg() {
+    let msg = document.getElementById("msg").value;
+    if (msg !== "") {
+      document.getElementById("chat").innerHTML += "<p>👤: " + msg + "</p>";
+      document.getElementById("msg").value = "";
     }
   }
 
   function emergenza() {
-    const scelta = prompt("Emergenza! Digita 1 = Ginseng, 2 = Chiama, 3 = Crêpes");
-
-    if (scelta === "1") {
-      alert("💊 Prendi Ginseng!");
-    } else if (scelta === "2") {
-      alert("📞 Chiama qualcuno!");
-    } else if (scelta === "3") {
-      alert("🥞 Ordina una crêpes!");
-    }
+    alert("Respira. Ginseng. Chiama qualcuno. Ordina una crêpes.");
   }
 </script>
 
