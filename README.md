@@ -136,9 +136,9 @@
 
   <script>
     /***** CONFIGURAZIONE (personalizza qui) *****/
-    const SITE_PASSWORD = localStorage.getItem('mg_password') || 'felice2025'; // cambiala prima di pubblicare
+    const SITE_PASSWORD = localStorage.getItem('mg_password') || '26071989'; // cambiala prima di pubblicare
     const THUNKABLE_URL = 'https://x.thunkable.com/copy/IL_TUO_LINK_APP';
-    const GITHUB_URL = 'https://yourusername.github.io/tuo-repo/';
+    const GITHUB_URL = 'https://tagjunior91.github.io/Sorpresa/';
     const BOT_MESSAGES = [
       "Respira profondamente — c'è ancora una piccola luce.",
       "Hai superato giorni peggiori: oggi sei più forte di ieri.",
