@@ -1,5 +1,5 @@
 # migliorare-giornata
-<!doctype html>
+
 <html lang="it">
 <head>
   <meta charset="utf-8" />
