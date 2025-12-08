@@ -92,5 +92,3 @@ function addMsg(who,text){
 
 </body>
 </html>
-
-/* LOAD ALL
