@@ -1,303 +1,272 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Sito Migliora la Giornata</title>
+  <meta charset="UTF-8">
+  <title>Area Riservata ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-  margin:0;
-  font-family: system-ui, sans-serif;
-  background: linear-gradient(180deg,#071226,#041627);
-  color:white;
-}
-.overlay {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-.pw-box {
-  background:#0b1220;
-  padding:20px;
-  border-radius:12px;
-  width:300px;
-}
-input, textarea {
-  width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  background:#111827;
-  color:white;
-  margin-top:10px;
-}
-button {
-  padding:10px 14px;
-  margin-top:10px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  background:#ffd166;
-  color:black;
-  font-weight:600;
-}
-#app {
-  display:none;
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
-.card {
-  background:rgba(255,255,255,0.03);
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:18px;
-}
-.chat-window {
-  height:220px;
-  overflow:auto;
-  background:#0b1220;
-  padding:10px;
-  border-radius:8px;
-}
-.msg {
-  padding:6px 10px;
-  border-radius:8px;
-  margin-bottom:6px;
-  max-width:80%;
-}
-.msg.me {
-  background:#111827;
-  margin-left:auto;
-  text-align:right;
-}
-.msg.bot {
-  background:#132f2f;
-}
-.controls {
-  display:flex;
-  gap:6px;
-  margin-top:8px;
-}
-.docs-list img,
-.docs-list video {
-  max-width:100%;
-  border-radius:8px;
-  margin-top:6px;
-}
-footer {
-  text-align:center;
-  color:#9ca3af;
-  font-size:12px;
-  margin-top:20px;
-}
-</style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .box {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .card {
+      background: #111;
+      border-radius: 16px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+
+    img, video, iframe {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    a {
+      color: #ff8fa3;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #333;
+      margin: 20px 0;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- BLOCCO PASSWORD -->
-<div id="pwOverlay" class="overlay">
-  <div class="pw-box">
-    <h2>Inserisci password</h2>
-    <input id="pwInput" type="password" placeholder="Password">
-    <button id="pwTry">Entra</button>
+<div class="box">
+
+  <!-- Login -->
+  <div id="loginBox">
+    <h2>🔒 Area Protetta</h2>
+    <input type="password" id="password" placeholder="Inserisci la password">
+    <button onclick="login()">Entra</button>
+    <p id="error" style="color:#ff6b6b;"></p>
   </div>
-</div>
 
-<!-- APP -->
-<div id="app">
+  <!-- Contenuto -->
+  <div id="content" class="hidden">
 
-  <h1>Sito che migliora la giornata</h1>
+    <h2>❤️ Benvenuta</h2>
 
-  <!-- CHAT -->
-  <div class="card">
-    <h3>Mini chat di incoraggiamento</h3>
-    <div id="chat" class="chat-window"></div>
-
-    <div class="controls">
-      <input id="chatInput" type="text" placeholder="Scrivi qualcosa...">
-      <button id="sendBtn">Invia</button>
+    <!-- FOTO -->
+    <div class="card">
+      <h3>📸 Foto</h3>
+      <input id="photoLink" placeholder="Incolla link immagine (https://...)">
+      <button onclick="addPhoto()">Aggiungi foto</button>
+      <div id="photoList"></div>
     </div>
 
-    <button id="cheerBtn">Ricevi una dose di positività</button>
+    <!-- VIDEO -->
+    <div class="card">
+      <h3>🎬 Video</h3>
+      <input id="videoLink" placeholder="Incolla link video (YouTube/mp4)">
+      <button onclick="addVideo()">Aggiungi video</button>
+      <div id="videoList"></div>
+    </div>
+
+    <!-- LETTERE -->
+    <div class="card">
+      <h3>💌 Lettere</h3>
+      <textarea id="letterText" placeholder="Scrivi una lettera..."></textarea>
+      <button onclick="addLetter()">Salva lettera</button>
+      <div id="letterList"></div>
+    </div>
+
+    <!-- CHAT -->
+    <div class="card">
+      <h3>💬 Mini Chat</h3>
+      <input id="chatInput" placeholder="Scrivi un messaggio...">
+      <button onclick="sendMsg()">Invia</button>
+      <div id="chatBox"></div>
+    </div>
+
+    <!-- LINK ESTERNI -->
+    <div class="card">
+      <h3>🌍 Link Speciali</h3>
+      <input id="siteName" placeholder="Nome sito">
+      <input id="siteLink" placeholder="Link https://...">
+      <button onclick="addLink()">Aggiungi link</button>
+      <div id="linkList"></div>
+    </div>
+
   </div>
-
-  <!-- NOTE -->
-  <div class="card">
-    <h3>Note condivise</h3>
-    <textarea id="sharedNotes" placeholder="Scrivi qui..."></textarea>
-    <button id="saveNotes">Salva note</button>
-  </div>
-
-  <!-- DOCUMENTI -->
-  <div class="card">
-    <h3>Foto e Video</h3>
-    <input id="fileInput" type="file" accept="image/*,video/*">
-    <button id="addTextDoc">Aggiungi lettera</button>
-    <div id="docs" class="docs-list"></div>
-  </div>
-
-  <!-- LINK -->
-  <div class="card">
-    <h3>Link utili</h3>
-    <a id="thunkLink" target="_blank">Apri App Thunkable</a><br>
-    <a id="githubLink" target="_blank">Apri sito GitHub</a>
-  </div>
-
-  <footer>
-    Creato per migliorare la giornata ✨
-  </footer>
-
 </div>
 
 <script>
-/* PASSWORD */
-const SITE_PASSWORD = 'felice2025';
+  const PASSWORD = "amore123";   // <-- cambia qui la password
 
-const overlay = document.getElementById('pwOverlay');
-const app = document.getElementById('app');
-const pwInput = document.getElementById('pwInput');
-
-document.getElementById('pwTry').addEventListener('click', tryPassword);
-pwInput.addEventListener('keyup', e => { if(e.key==='Enter') tryPassword(); });
-
-function tryPassword(){
-  if(pwInput.value.trim() === SITE_PASSWORD){
-    overlay.style.display='none';
-    app.style.display='block';
-    loadAll();
-  } else {
-    alert('Password errata ❌');
-  }
-}
-
-/* CHAT */
-const chatEl = document.getElementById('chat');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
-
-const BOT_MESSAGES = [
-  "Respira profondamente — c'è una luce anche oggi.",
-  "Sei più forte di quanto pensi.",
-  "Giorni difficili creano persone forti.",
-  "Sorridi, anche piano piano 🤍"
-];
-
-sendBtn.addEventListener('click', sendMessage);
-chatInput.addEventListener('keyup', e=>{ if(e.key==='Enter') sendMessage(); });
-document.getElementById('cheerBtn').addEventListener('click', ()=>{
-  const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-  addMsg('bot', r);
-});
-
-function sendMessage(){
-  const text = chatInput.value.trim();
-  if(!text) return;
-  addMsg('me', text);
-  chatInput.value='';
-  setTimeout(()=>{
-    const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-    addMsg('bot', r);
-  }, 500);
-}
-
-function addMsg(who,text){
-  const div = document.createElement('div');
-  div.className = 'msg ' + who;
-  div.textContent = text;
-  chatEl.appendChild(div);
-  chatEl.scrollTop = chatEl.scrollHeight;
-}
-
-/* NOTE */
-const notesEl = document.getElementById('sharedNotes');
-document.getElementById('saveNotes').addEventListener('click', ()=>{
-  localStorage.setItem('mg_notes', notesEl.value);
-  alert('Note salvate ✅');
-});
-
-/* DOCUMENTI (foto + video + lettere) */
-const docsEl = document.getElementById('docs');
-const fileInput = document.getElementById('fileInput');
-document.getElementById('addTextDoc').addEventListener('click', ()=>{
-  const text = prompt('Scrivi la lettera:');
-  if(!text) return;
-  addDoc({type:'letter', name:'lettera_'+Date.now(), text});
-});
-
-fileInput.addEventListener('change', handleFile);
-
-function handleFile(e){
-  const f = e.target.files[0];
-  if(!f) return;
-
-  const reader = new FileReader();
-
-  if(f.type.startsWith('image/')){
-    reader.onload = ()=> addDoc({type:'image', name:f.name, data:reader.result});
-    reader.readAsDataURL(f);
-  }
-  else if(f.type.startsWith('video/')){
-    reader.onload = ()=> addDoc({type:'video', name:f.name, data:reader.result});
-    reader.readAsDataURL(f);
+  function login(){
+    const p = document.getElementById('password').value;
+    if(p === PASSWORD){
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('content').classList.remove('hidden');
+      loadAll();
+    } else {
+      document.getElementById('error').innerText = 'Password errata ❌';
+    }
   }
 
-  fileInput.value = '';
-}
+  function save(key, data){
+    localStorage.setItem(key, JSON.stringify(data));
+  }
 
-function addDoc(doc){
-  const arr = JSON.parse(localStorage.getItem('mg_docs') || '[]');
-  arr.push(doc);
-  localStorage.setItem('mg_docs', JSON.stringify(arr));
-  renderDocs();
-}
+  function load(key){
+    return JSON.parse(localStorage.getItem(key) || "[]");
+  }
 
-function renderDocs(){
-  const arr = JSON.parse(localStorage.getItem('mg_docs') || '[]');
-  docsEl.innerHTML = '';
-  arr.forEach(d=>{
-    const wrap = document.createElement('div');
+  function loadAll(){
+    renderPhotos();
+    renderVideos();
+    renderLetters();
+    renderChat();
+    renderLinks();
+  }
 
-    const meta = document.createElement('div');
-    meta.textContent = d.name + ' • ' + d.type;
-    wrap.appendChild(meta);
+  /* FOTO */
+  function addPhoto(){
+    const link = document.getElementById('photoLink').value;
+    if(!link) return;
+    const photos = load('photos');
+    photos.push(link);
+    save('photos', photos);
+    document.getElementById('photoLink').value='';
+    renderPhotos();
+  }
 
-    if(d.type==='image'){
-      const img = document.createElement('img');
-      img.src = d.data;
-      wrap.appendChild(img);
-    }
-    else if(d.type==='video'){
-      const video = document.createElement('video');
-      video.src = d.data;
-      video.controls = true;
-      wrap.appendChild(video);
-    }
-    else {
-      const p = document.createElement('pre');
-      p.textContent = d.text;
-      wrap.appendChild(p);
-    }
+  function renderPhotos(){
+    const list = document.getElementById('photoList');
+    const photos = load('photos');
+    list.innerHTML = '';
+    photos.forEach(l=>{
+      list.innerHTML += `<img src="${l}">`;
+    });
+  }
 
-    docsEl.appendChild(wrap);
-  });
-}
+  /* VIDEO */
+  function addVideo(){
+    const link = document.getElementById('videoLink').value;
+    if(!link) return;
+    const videos = load('videos');
+    videos.push(link);
+    save('videos', videos);
+    document.getElementById('videoLink').value='';
+    renderVideos();
+  }
 
-/* LINK */
-document.getElementById('thunkLink').href = 'https://x.thunkable.com/copy/IL_TUO_LINK_APP';
-document.getElementById('githubLink').href = 'https://yourusername.github.io/tuo-repo/';
+  function renderVideos(){
+    const list = document.getElementById('videoList');
+    const videos = load('videos');
+    list.innerHTML = '';
 
-/* LOAD */
-function loadAll(){
-  notesEl.value = localStorage.getItem('mg_notes') || '';
-  renderDocs();
-}
+    videos.forEach(l=>{
+      if(l.includes('youtube.com') || l.includes('youtu.be')){
+        let id = l.split('v=')[1] || l.split('/').pop();
+        const clean = id.split('&')[0];
+        list.innerHTML += `
+          <iframe height="315" src="https://www.youtube.com/embed/${clean}" allowfullscreen></iframe>
+        `;
+      } else {
+        list.innerHTML += `<video src="${l}" controls></video>`;
+      }
+    });
+  }
+
+  /* LETTERE */
+  function addLetter(){
+    const txt = document.getElementById('letterText').value;
+    if(!txt) return;
+    const letters = load('letters');
+    letters.push(txt);
+    save('letters', letters);
+    document.getElementById('letterText').value='';
+    renderLetters();
+  }
+
+  function renderLetters(){
+    const list = document.getElementById('letterList');
+    const letters = load('letters');
+    list.innerHTML = '';
+    letters.forEach(t=>{
+      list.innerHTML += `<div class="card">${t}</div>`;
+    });
+  }
+
+  /* CHAT */
+  function sendMsg(){
+    const txt = document.getElementById('chatInput').value;
+    if(!txt) return;
+    const chat = load('chat');
+    chat.push("❤️ " + txt);
+    save('chat', chat);
+    document.getElementById('chatInput').value='';
+    renderChat();
+  }
+
+  function renderChat(){
+    const list = document.getElementById('chatBox');
+    const chat = load('chat');
+    list.innerHTML = '';
+    chat.forEach(m=>{
+      list.innerHTML += `<div class="card">${m}</div>`;
+    });
+  }
+
+  /* LINK */
+  function addLink(){
+    const name = document.getElementById('siteName').value;
+    const link = document.getElementById('siteLink').value;
+    if(!name || !link) return;
+    const links = load('links');
+    links.push({name, link});
+    save('links', links);
+    document.getElementById('siteName').value='';
+    document.getElementById('siteLink').value='';
+    renderLinks();
+  }
+
+  function renderLinks(){
+    const list = document.getElementById('linkList');
+    const links = load('links');
+    list.innerHTML = '';
+    links.forEach(l=>{
+      list.innerHTML += `<div class="card"><a href="${l.link}" target="_blank">${l.name}</a></div>`;
+    });
+  }
 </script>
 
 </body>
