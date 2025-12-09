@@ -121,7 +121,7 @@
 </div>
 
 <script>
-  const PASSWORD = "amore123"; // CAMBIA QUI
+  const PASSWORD = "26071989"; // CAMBIA QUI
 
   def = JSON.parse || function(v){return v};
 
