@@ -73,7 +73,7 @@
   <!-- Login -->
   <div id="loginBox">
     <h2>🔒 Area Protetta</h2>
-    <input type="password" id="password" placeholder="Inserisci la password">
+    <input type="password" id="password" placeholder="26071989">
     <button onclick="login()">Entra</button>
     <p id="error" style="color:#ff6b6b;"></p>
   </div>
