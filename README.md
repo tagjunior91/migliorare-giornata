@@ -2,182 +2,324 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Sito Migliora la Giornata</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sito che migliora la giornata</title>
+
 <style>
-body { margin:0; font-family:sans-serif; background:linear-gradient(180deg,#071226,#041627); color:white; }
-.overlay { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:flex; justify-content:center; align-items:center; z-index:999; }
-.pw-box { background:#0b1220; padding:20px; border-radius:10px; width:300px; }
-input, textarea { width:100%; padding:8px; margin-top:8px; border-radius:5px; border:none; background:#111827; color:white; }
-button { padding:8px 12px; margin-top:8px; border:none; border-radius:5px; cursor:pointer; background:#ffd166; color:black; }
-#app { display:none; padding:20px; max-width:900px; margin:auto; }
-h1,h2,h3,h4 { margin:0 0 8px 0; }
-.card { background:rgba(255,255,255,0.03); padding:12px; border-radius:10px; margin-bottom:16px; }
-.chat-window { height:200px; overflow:auto; border:1px solid #444; padding:10px; margin-bottom:8px; background:#0b1220; }
-.msg.me { background:#111827; padding:6px; border-radius:5px; margin:4px 0; text-align:right; }
-.msg.bot { background:#132f2f; padding:6px; border-radius:5px; margin:4px 0; text-align:left; }
-.controls { display:flex; gap:4px; margin-bottom:12px; }
-.controls input { flex:1; }
-.notes { margin-bottom:12px; }
-.docs-list img { max-width:100%; border-radius:6px; margin-top:4px; }
-footer { margin-top:20px; font-size:12px; color:#9ca3af; }
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(180deg,#071226,#041627);
+  color:white;
+}
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+.pw-box{
+  background:#0b1220;
+  padding:22px;
+  border-radius:12px;
+  width:300px;
+}
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border:none;
+  border-radius:6px;
+  background:#111827;
+  color:white;
+}
+button{
+  padding:10px 14px;
+  margin-top:10px;
+  background:#ffd166;
+  color:black;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+#app{
+  display:none;
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+.card{
+  background:rgba(255,255,255,0.04);
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:16px;
+}
+.chat-window{
+  height:200px;
+  overflow:auto;
+  border:1px solid #444;
+  border-radius:8px;
+  padding:10px;
+  margin-bottom:8px;
+  background:#0b1220;
+}
+.msg.me{
+  background:#111827;
+  padding:8px;
+  border-radius:8px;
+  margin:6px 0;
+  text-align:right;
+}
+.msg.bot{
+  background:#133030;
+  padding:8px;
+  border-radius:8px;
+  margin:6px 0;
+  text-align:left;
+}
+.controls{
+  display:flex;
+  gap:6px;
+}
+.controls input{ flex:1 }
+.docs-list img{
+  max-width:100%;
+  border-radius:8px;
+  margin-top:6px;
+}
+.link-btn{
+  display:inline-block;
+  background:#111827;
+  padding:10px 14px;
+  margin:6px 0;
+  border-radius:8px;
+  color:white;
+  text-decoration:none;
+}
+footer{
+  font-size:12px;
+  color:#9ca3af;
+  margin-top:20px;
+  text-align:center;
+}
 </style>
 </head>
+
 <body>
 
+<!-- PASSWORD -->
 <div id="pwOverlay" class="overlay">
   <div class="pw-box">
-    <h2>Inserisci password</h2>
-    <input id="pwInput" type="password" placeholder="Password">
+    <h2>Area Riservata ❤️</h2>
+    <input id="pwInput" type="password" placeholder="Inserisci password">
     <button id="pwTry">Entra</button>
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
-  <h1>Sito che migliora la giornata</h1>
 
-  <!-- CHAT -->
-  <div class="card">
-    <h3>Mini chat di incoraggiamento</h3>
-    <div class="chat-window" id="chat"></div>
-    <div class="controls">
-      <input id="chatInput" type="text" placeholder="Scrivi qualcosa...">
-      <button id="sendBtn">Invia</button>
-    </div>
-    <button id="cheerBtn">Ricevi una dose di positività</button>
+<h1>Sito che migliora la giornata</h1>
+
+<!-- CHAT -->
+<div class="card">
+  <h3>Mini chat di incoraggiamento</h3>
+  <div id="chat" class="chat-window"></div>
+  <div class="controls">
+    <input id="chatInput" type="text" placeholder="Scrivi qui...">
+    <button id="sendBtn">Invia</button>
   </div>
+  <button id="cheerBtn">Ricevi un messaggio positivo</button>
+</div>
 
-  <!-- NOTE -->
-  <div class="card">
-    <h3>Note condivise</h3>
-    <div class="notes">
-      <textarea id="sharedNotes" placeholder="Scrivi qui..."></textarea>
-    </div>
-    <button id="saveNotes">Salva</button>
-  </div>
+<!-- NOTE -->
+<div class="card">
+  <h3>Note condivise</h3>
+  <textarea id="sharedNotes" placeholder="Scrivi qui..."></textarea>
+  <button id="saveNotes">Salva note</button>
+</div>
 
-  <!-- DOCUMENTI -->
-  <div class="card">
-    <h3>Cartacei consegnati (foto & lettere)</h3>
-    <input id="fileInput" type="file" accept="image/*">
-    <button id="addTextDoc">Aggiungi lettera</button>
-    <div id="docs" class="docs-list"></div>
-  </div>
+<!-- DOCUMENTI LOCALI -->
+<div class="card">
+  <h3>Cartacei locali</h3>
+  <input id="fileInput" type="file" accept="image/*">
+  <button id="addTextDoc">Aggiungi lettera</button>
+  <div id="docs" class="docs-list"></div>
+</div>
 
-  <!-- LINK -->
-  <div class="card">
-    <h3>Link utili</h3>
-    <div><a id="thunkLink" href="#" target="_blank">App Thunkable</a></div>
-    <div><a id="githubLink" href="#" target="_blank">Sito GitHub</a></div>
-  </div>
+<!-- GOOGLE DRIVE -->
+<div class="card">
+  <h3>📸 Foto & Lettere (Google Drive)</h3>
+  <a id="fotoLink" class="link-btn" target="_blank">Apri Foto</a><br>
+  <a id="lettereLink" class="link-btn" target="_blank">Apri Lettere</a>
+</div>
 
-  <footer>
-    Creato per tirare su la giornata — versione locale
-  </footer>
+<!-- SPOTIFY EMBED -->
+<div class="card">
+  <h3>🎧 Playlist Spotify</h3>
+  <iframe style="border-radius:12px"
+    src="https://open.spotify.com/embed/playlist/INSERISCI_ID_PLAYLIST"
+    width="100%" height="380"
+    frameborder="0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+</div>
+
+<!-- ALTRI LINK -->
+<div class="card">
+  <h3>Link esterni</h3>
+  <a id="thunkLink" class="link-btn" target="_blank">App Thunkable</a><br>
+  <a id="githubLink" class="link-btn" target="_blank">Sito GitHub</a>
+</div>
+
+<footer>
+  Creato per migliorare la giornata 🌙
+</footer>
+
 </div>
 
 <script>
-const SITE_PASSWORD = 'felice2025';
-const overlay = document.getElementById('pwOverlay');
-const app = document.getElementById('app');
-const pwInput = document.getElementById('pwInput');
+// PASSWORD
+const SITE_PASSWORD = "felice2025";
+const overlay = document.getElementById("pwOverlay");
+const app = document.getElementById("app");
+const pwInput = document.getElementById("pwInput");
 
-document.getElementById('pwTry').addEventListener('click', tryPassword);
-pwInput.addEventListener('keyup', e=>{ if(e.key==='Enter') tryPassword(); });
+document.getElementById("pwTry").addEventListener("click", tryPassword);
+pwInput.addEventListener("keyup", (e)=>{ if(e.key==="Enter") tryPassword(); });
 
 function tryPassword(){
   if(pwInput.value.trim()===SITE_PASSWORD){
-    overlay.style.display='none';
-    app.style.display='block';
+    overlay.style.display="none";
+    app.style.display="block";
     loadAll();
-  } else alert('Password errata');
+  } else {
+    alert("Password errata");
+  }
 }
 
 // CHAT
-const chatEl = document.getElementById('chat');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
+const chatEl = document.getElementById("chat");
+const chatInput = document.getElementById("chatInput");
+const sendBtn = document.getElementById("sendBtn");
+
 const BOT_MESSAGES = [
-  "Respira profondamente — c'è ancora una piccola luce.",
-  "Hai superato giorni peggiori: oggi sei più forte di ieri.",
-  "Un piccolo gesto può cambiare la giornata: prova a fare qualcosa che ami."
+  "Respira. Sei più forte di quanto pensi.",
+  "Un passo alla volta. Ce la farai.",
+  "Anche oggi è una vittoria."
 ];
 
-sendBtn.addEventListener('click', sendMessage);
-chatInput.addEventListener('keyup', e=>{ if(e.key==='Enter') sendMessage(); });
-document.getElementById('cheerBtn').addEventListener('click', ()=>{
+sendBtn.addEventListener("click", sendMessage);
+chatInput.addEventListener("keyup", (e)=>{ if(e.key==="Enter") sendMessage(); });
+
+document.getElementById("cheerBtn").addEventListener("click", ()=>{
   const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-  addMsg('bot', r);
+  addMsg("bot", r);
 });
 
 function sendMessage(){
   const text = chatInput.value.trim();
   if(!text) return;
-  addMsg('me', text);
-  chatInput.value='';
+  addMsg("me", text);
+  chatInput.value="";
   setTimeout(()=>{
     const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-    addMsg('bot', r);
-  }, 500);
+    addMsg("bot", r);
+  },500);
 }
 
 function addMsg(who,text){
-  const div = document.createElement('div');
-  div.className='msg '+who;
-  div.textContent=text;
+  const div = document.createElement("div");
+  div.className = "msg " + who;
+  div.textContent = text;
   chatEl.appendChild(div);
   chatEl.scrollTop = chatEl.scrollHeight;
 }
 
 // NOTE
-const notesEl = document.getElementById('sharedNotes');
-document.getElementById('saveNotes').addEventListener('click', ()=>{ localStorage.setItem('mg_notes', notesEl.value); alert('Note salvate'); });
+const notesEl = document.getElementById("sharedNotes");
+document.getElementById("saveNotes").addEventListener("click", ()=>{
+  localStorage.setItem("mg_notes", notesEl.value);
+  alert("Note salvate");
+});
 
 // DOCUMENTI
-const docsEl = document.getElementById('docs');
-const fileInput = document.getElementById('fileInput');
-const addTextDocBtn = document.getElementById('addTextDoc');
+const docsEl = document.getElementById("docs");
+const fileInput = document.getElementById("fileInput");
+const addTextDocBtn = document.getElementById("addTextDoc");
 
-fileInput.addEventListener('change', e=>{
+fileInput.addEventListener("change", (e)=>{
   const f = e.target.files[0];
   if(!f) return;
   const reader = new FileReader();
-  reader.onload = ()=>{ addDoc({type:'image',name:f.name,data:reader.result}); fileInput.value=''; };
+  reader.onload = ()=>{
+    addDoc({type:"image",name:f.name,data:reader.result});
+    fileInput.value="";
+  };
   reader.readAsDataURL(f);
 });
 
-addTextDocBtn.addEventListener('click', ()=>{
-  const t = prompt('Incolla il testo della lettera:'); 
+addTextDocBtn.addEventListener("click", ()=>{
+  const t = prompt("Incolla il testo della lettera:");
   if(!t) return;
-  addDoc({type:'letter',name:'lettera-'+Date.now(),text:t});
+  addDoc({type:"letter",name:"lettera-"+Date.now(),text:t});
 });
 
 function addDoc(doc){
-  const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); arr.push(doc); localStorage.setItem('mg_docs',JSON.stringify(arr)); renderDocs(); 
+  const arr = JSON.parse(localStorage.getItem("mg_docs")||"[]");
+  arr.push(doc);
+  localStorage.setItem("mg_docs",JSON.stringify(arr));
+  renderDocs();
 }
 
 function renderDocs(){
-  const arr = JSON.parse(localStorage.getItem('mg_docs')||'[]'); docsEl.innerHTML='';
-  arr.forEach((d,i)=>{
-    const wrapper = document.createElement('div'); wrapper.style.marginBottom='8px';
-    const meta = document.createElement('div'); meta.textContent=d.name+' • '+d.type;
+  const arr = JSON.parse(localStorage.getItem("mg_docs")||"[]");
+  docsEl.innerHTML = "";
+  arr.forEach((d)=>{
+    const wrapper = document.createElement("div");
+    wrapper.style.marginBottom = "10px";
+
+    const meta = document.createElement("div");
+    meta.textContent = d.name + " • " + d.type;
     wrapper.appendChild(meta);
-    if(d.type==='image'){
-      const img = document.createElement('img'); img.src=d.data; wrapper.appendChild(img);
-    } else {
-      const p = document.createElement('pre'); p.textContent=d.text; wrapper.appendChild(p);
+
+    if(d.type==="image"){
+      const img = document.createElement("img");
+      img.src = d.data;
+      wrapper.appendChild(img);
+    }else{
+      const p = document.createElement("pre");
+      p.textContent = d.text;
+      wrapper.appendChild(p);
     }
+
     docsEl.appendChild(wrapper);
   });
 }
 
-// LINK
-document.getElementById('thunkLink').href = 'https://x.thunkable.com/copy/IL_TUO_LINK_APP';
-document.getElementById('githubLink').href = 'https://yourusername.github.io/tuo-repo/';
+// GOOGLE DRIVE - INSERISCI I TUOI ID
+document.getElementById("fotoLink").href =
+  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_FOTO?usp=sharing";
 
-// LOAD ALL
+document.getElementById("lettereLink").href =
+  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_LETTERE?usp=sharing";
+
+// SPOTIFY LINK (per pulsante esterno opzionale)
+document.getElementById("thunkLink").href =
+  "https://x.thunkable.com/copy/TUO_LINK_APP";
+
+document.getElementById("githubLink").href =
+  "https://yourusername.github.io/tuo-repo/";
+
+// LOAD
 function loadAll(){
-  notesEl.value = localStorage.getItem('mg_notes')||'';
+  notesEl.value = localStorage.getItem("mg_notes") || "";
   renderDocs();
 }
 </script>
+
+</body>
+</html>
