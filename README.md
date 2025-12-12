@@ -1,324 +1,118 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sito che migliora la giornata</title>
-
-<style>
-body{
-  margin:0;
-  font-family:sans-serif;
-  background:linear-gradient(180deg,#071226,#041627);
-  color:white;
-}
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-.pw-box{
-  background:#0b1220;
-  padding:22px;
-  border-radius:12px;
-  width:300px;
-}
-input,textarea{
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  border:none;
-  border-radius:6px;
-  background:#111827;
-  color:white;
-}
-button{
-  padding:10px 14px;
-  margin-top:10px;
-  background:#ffd166;
-  color:black;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
-#app{
-  display:none;
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
-.card{
-  background:rgba(255,255,255,0.04);
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:16px;
-}
-.chat-window{
-  height:200px;
-  overflow:auto;
-  border:1px solid #444;
-  border-radius:8px;
-  padding:10px;
-  margin-bottom:8px;
-  background:#0b1220;
-}
-.msg.me{
-  background:#111827;
-  padding:8px;
-  border-radius:8px;
-  margin:6px 0;
-  text-align:right;
-}
-.msg.bot{
-  background:#133030;
-  padding:8px;
-  border-radius:8px;
-  margin:6px 0;
-  text-align:left;
-}
-.controls{
-  display:flex;
-  gap:6px;
-}
-.controls input{ flex:1 }
-.docs-list img{
-  max-width:100%;
-  border-radius:8px;
-  margin-top:6px;
-}
-.link-btn{
-  display:inline-block;
-  background:#111827;
-  padding:10px 14px;
-  margin:6px 0;
-  border-radius:8px;
-  color:white;
-  text-decoration:none;
-}
-footer{
-  font-size:12px;
-  color:#9ca3af;
-  margin-top:20px;
-  text-align:center;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Area Riservata ❤️</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #login, #content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 450px;
+    }
+    h2, h3 { text-align: center; }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: black;
+      color: white;
+      cursor: pointer;
+    }
+    .hidden { display: none; }
+    .section {
+      background: #fafafa;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+    #chat-box {
+      height: 150px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: white;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- PASSWORD -->
-<div id="pwOverlay" class="overlay">
-  <div class="pw-box">
-    <h2>Area Riservata ❤️</h2>
-    <input id="pwInput" type="password" placeholder="Inserisci password">
-    <button id="pwTry">Entra</button>
+<!-- LOGIN -->
+<div id="login">
+  <h2>Accedi ❤️</h2>
+  <input type="password" id="password" placeholder="Inserisci la password">
+  <button onclick="checkPassword()">Entra</button>
+</div>
+
+<!-- CONTENUTO SEGRETO -->
+<div id="content" class="hidden">
+  <h2>Benvenuta ❤️</h2>
+
+  <!-- FOTO & LETTERE -->
+  <div class="section">
+    <h3>📸 Foto & 📄 Lettere</h3>
+    <p>Apri la cartella protetta:</p>
+    <a href="INSERISCI_LINK_GOOGLE_DRIVE" target="_blank">Vai alle foto e lettere</a>
   </div>
-</div>
 
-<!-- APP -->
-<div id="app">
-
-<h1>Sito che migliora la giornata</h1>
-
-<!-- CHAT -->
-<div class="card">
-  <h3>Mini chat di incoraggiamento</h3>
-  <div id="chat" class="chat-window"></div>
-  <div class="controls">
-    <input id="chatInput" type="text" placeholder="Scrivi qui...">
-    <button id="sendBtn">Invia</button>
+  <!-- SPOTIFY EMBED -->
+  <div class="section">
+    <h3>🎵 Playlist Spotify</h3>
+    <iframe style="border-radius:12px"
+      src="INSERISCI_LINK_EMBED_SPOTIFY"
+      width="100%"
+      height="352"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
   </div>
-  <button id="cheerBtn">Ricevi un messaggio positivo</button>
-</div>
 
-<!-- NOTE -->
-<div class="card">
-  <h3>Note condivise</h3>
-  <textarea id="sharedNotes" placeholder="Scrivi qui..."></textarea>
-  <button id="saveNotes">Salva note</button>
-</div>
-
-<!-- DOCUMENTI LOCALI -->
-<div class="card">
-  <h3>Cartacei locali</h3>
-  <input id="fileInput" type="file" accept="image/*">
-  <button id="addTextDoc">Aggiungi lettera</button>
-  <div id="docs" class="docs-list"></div>
-</div>
-
-<!-- GOOGLE DRIVE -->
-<div class="card">
-  <h3>📸 Foto & Lettere (Google Drive)</h3>
-  <a id="fotoLink" class="link-btn" target="_blank">Apri Foto</a><br>
-  <a id="lettereLink" class="link-btn" target="_blank">Apri Lettere</a>
-</div>
-
-<!-- SPOTIFY EMBED -->
-<div class="card">
-  <h3>🎧 Playlist Spotify</h3>
-  <iframe style="border-radius:12px"
-    src="https://open.spotify.com/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=Dxop7uvOTv6HR"
-    width="100%" height="380"
-    frameborder="0"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-  </iframe>
-</div>
-
-<!-- ALTRI LINK -->
-<div class="card">
-  <h3>Link esterni</h3>
-  <a id="thunkLink" class="link-btn" target="_blank">App Thunkable</a><br>
-  <a id="githubLink" class="link-btn" target="_blank">Sito GitHub</a>
-</div>
-
-<footer>
-  Creato per migliorare la giornata 🌙
-</footer>
+  <!-- MINI CHAT -->
+  <div class="section">
+    <h3>💬 Mini-Chat</h3>
+    <div id="chat-box"></div>
+    <input type="text" id="chat-input" placeholder="Scrivi un messaggio…">
+    <button onclick="sendMessage()">Invia</button>
+  </div>
 
 </div>
 
 <script>
-// PASSWORD
-const SITE_PASSWORD = "felice2025";
-const overlay = document.getElementById("pwOverlay");
-const app = document.getElementById("app");
-const pwInput = document.getElementById("pwInput");
-
-document.getElementById("pwTry").addEventListener("click", tryPassword);
-pwInput.addEventListener("keyup", (e)=>{ if(e.key==="Enter") tryPassword(); });
-
-function tryPassword(){
-  if(pwInput.value.trim()===SITE_PASSWORD){
-    overlay.style.display="none";
-    app.style.display="block";
-    loadAll();
-  } else {
-    alert("Password errata");
-  }
-}
-
-// CHAT
-const chatEl = document.getElementById("chat");
-const chatInput = document.getElementById("chatInput");
-const sendBtn = document.getElementById("sendBtn");
-
-const BOT_MESSAGES = [
-  "Respira. Sei più forte di quanto pensi.",
-  "Un passo alla volta. Ce la farai.",
-  "Anche oggi è una vittoria."
-];
-
-sendBtn.addEventListener("click", sendMessage);
-chatInput.addEventListener("keyup", (e)=>{ if(e.key==="Enter") sendMessage(); });
-
-document.getElementById("cheerBtn").addEventListener("click", ()=>{
-  const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-  addMsg("bot", r);
-});
-
-function sendMessage(){
-  const text = chatInput.value.trim();
-  if(!text) return;
-  addMsg("me", text);
-  chatInput.value="";
-  setTimeout(()=>{
-    const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-    addMsg("bot", r);
-  },500);
-}
-
-function addMsg(who,text){
-  const div = document.createElement("div");
-  div.className = "msg " + who;
-  div.textContent = text;
-  chatEl.appendChild(div);
-  chatEl.scrollTop = chatEl.scrollHeight;
-}
-
-// NOTE
-const notesEl = document.getElementById("sharedNotes");
-document.getElementById("saveNotes").addEventListener("click", ()=>{
-  localStorage.setItem("mg_notes", notesEl.value);
-  alert("Note salvate");
-});
-
-// DOCUMENTI
-const docsEl = document.getElementById("docs");
-const fileInput = document.getElementById("fileInput");
-const addTextDocBtn = document.getElementById("addTextDoc");
-
-fileInput.addEventListener("change", (e)=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  const reader = new FileReader();
-  reader.onload = ()=>{
-    addDoc({type:"image",name:f.name,data:reader.result});
-    fileInput.value="";
-  };
-  reader.readAsDataURL(f);
-});
-
-addTextDocBtn.addEventListener("click", ()=>{
-  const t = prompt("Incolla il testo della lettera:");
-  if(!t) return;
-  addDoc({type:"letter",name:"lettera-"+Date.now(),text:t});
-});
-
-function addDoc(doc){
-  const arr = JSON.parse(localStorage.getItem("mg_docs")||"[]");
-  arr.push(doc);
-  localStorage.setItem("mg_docs",JSON.stringify(arr));
-  renderDocs();
-}
-
-function renderDocs(){
-  const arr = JSON.parse(localStorage.getItem("mg_docs")||"[]");
-  docsEl.innerHTML = "";
-  arr.forEach((d)=>{
-    const wrapper = document.createElement("div");
-    wrapper.style.marginBottom = "10px";
-
-    const meta = document.createElement("div");
-    meta.textContent = d.name + " • " + d.type;
-    wrapper.appendChild(meta);
-
-    if(d.type==="image"){
-      const img = document.createElement("img");
-      img.src = d.data;
-      wrapper.appendChild(img);
-    }else{
-      const p = document.createElement("pre");
-      p.textContent = d.text;
-      wrapper.appendChild(p);
+  function checkPassword() {
+    const pass = document.getElementById("password").value;
+    if (pass === "la_tua_password") {
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("content").classList.remove("hidden");
+    } else {
+      alert("Password errata 😢");
     }
+  }
 
-    docsEl.appendChild(wrapper);
-  });
-}
-
-// GOOGLE DRIVE - INSERISCI I TUOI ID
-document.getElementById("fotoLink").href =
-  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_FOTO?usp=sharing";
-
-document.getElementById("lettereLink").href =
-  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_LETTERE?usp=sharing";
-
-// SPOTIFY LINK (per pulsante esterno opzionale)
-document.getElementById("thunkLink").href =
-  "https://x.thunkable.com/copy/TUO_LINK_APP";
-
-document.getElementById("githubLink").href =
-  "https://tagjunior91.github.io/Sorpresa/";
-
-// LOAD
-function loadAll(){
-  notesEl.value = localStorage.getItem("mg_notes") || "";
-  renderDocs();
-}
+  function sendMessage() {
+    const box = document.getElementById("chat-box");
+    const text = document.getElementById("chat-input").value;
+    if (text.trim() === "") return;
+    box.innerHTML += "<div>• " + text + "</div>";
+    document.getElementById("chat-input").value = "";
+    box.scrollTop = box.scrollHeight;
+  }
 </script>
 
 </body>
