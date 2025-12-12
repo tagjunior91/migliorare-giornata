@@ -127,7 +127,7 @@ footer{
 <!-- SPOTIFY PRIVATO -->
 <div class="card">
   <h3>🎧 Playlist Spotify</h3>
-  <a href="https://open.spotify.com/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=Dxop7uvOTv6HR" target="_blank"
+  <a href="https://open.spotify.com/embed/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=Dxop7uvOTv6HR" target="_blank"
      style="display:inline-block;padding:14px 18px;border-radius:10px;
             background:#1DB954;color:white;font-weight:bold;
             text-decoration:none;">
