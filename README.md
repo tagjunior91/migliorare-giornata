@@ -124,6 +124,17 @@ footer{
 
 <h1>Sito che migliora la giornata</h1>
 
+<!-- SPOTIFY PRIVATO -->
+<div class="card">
+  <h3>🎧 Playlist Spotify</h3>
+  <a href="IL_TUO_LINK_SPOTIFY" target="_blank"
+     style="display:inline-block;padding:14px 18px;border-radius:10px;
+            background:#1DB954;color:white;font-weight:bold;
+            text-decoration:none;">
+    ▶️ Ascolta su Spotify
+  </a>
+</div>
+
 <!-- CHAT -->
 <div class="card">
   <h3>Mini chat di incoraggiamento</h3>
@@ -155,17 +166,6 @@ footer{
   <h3>📸 Foto & Lettere (Google Drive)</h3>
   <a id="fotoLink" class="link-btn" target="_blank">Apri Foto</a><br>
   <a id="lettereLink" class="link-btn" target="_blank">Apri Lettere</a>
-</div>
-
-<!-- SPOTIFY EMBED -->
-<div class="card">
-  <h3>🎧 Playlist Spotify</h3>
-  <iframe style="border-radius:12px"
-    src="https://open.spotify.com/embed/playlist/INSERISCI_ID_PLAYLIST"
-    width="100%" height="380"
-    frameborder="0"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-  </iframe>
 </div>
 
 <!-- ALTRI LINK -->
@@ -307,7 +307,7 @@ document.getElementById("fotoLink").href =
 document.getElementById("lettereLink").href =
   "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_LETTERE?usp=sharing";
 
-// SPOTIFY LINK (per pulsante esterno opzionale)
+// LINK ESTERNI
 document.getElementById("thunkLink").href =
   "https://x.thunkable.com/copy/TUO_LINK_APP";
 
