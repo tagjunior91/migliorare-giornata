@@ -303,8 +303,8 @@ document.getElementById("lettereLink").href =
 document.getElementById("thunkLink").href =
   "https://x.thunkable.com/copy/TUO_LINK_APP";
 
-document.getElementById("sorpresa").href =
-  "https://tagjunior91.github.io/Sorpresa/";
+document.getElementById("githubLink").href =
+  "https://yourusername.github.io/tuo-repo/";
 
 // LOAD
 function loadAll(){
