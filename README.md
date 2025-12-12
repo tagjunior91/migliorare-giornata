@@ -76,7 +76,7 @@
   <div class="section">
     <h3>🎵 Playlist Spotify</h3>
     <iframe style="border-radius:12px"
-      src="INSERISCI_LINK_EMBED_SPOTIFY"
+      src="https://open.spotify.com/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=Dxop7uvOTv6HR"
       width="100%"
       height="352"
       frameborder="0"
