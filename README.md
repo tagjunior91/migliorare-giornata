@@ -161,7 +161,7 @@ footer{
 <div class="card">
   <h3>🎧 Playlist Spotify</h3>
   <iframe style="border-radius:12px"
-    src="https://open.spotify.com/embed/playlist/INSERISCI_ID_PLAYLIST"
+    src="https://open.spotify.com/embed/playlist/https://open.spotify.com/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=Dxop7uvOTv6HR"
     width="100%" height="380"
     frameborder="0"
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
