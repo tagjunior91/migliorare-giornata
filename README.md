@@ -153,14 +153,6 @@ footer{
   <button id="saveNotes">Salva note</button>
 </div>
 
-<!-- DOCUMENTI LOCALI -->
-<div class="card">
-  <h3>Cartacei locali</h3>
-  <input id="fileInput" type="file" accept="image/*">
-  <button id="addTextDoc">Aggiungi lettera</button>
-  <div id="docs" class="docs-list"></div>
-</div>
-
 <!-- GOOGLE DRIVE -->
 <div class="card">
   <h3>📸 Foto & Lettere (Google Drive)</h3>
@@ -311,8 +303,8 @@ document.getElementById("lettereLink").href =
 document.getElementById("thunkLink").href =
   "https://x.thunkable.com/copy/TUO_LINK_APP";
 
-document.getElementById("githubLink").href =
-  "https://yourusername.github.io/tuo-repo/";
+document.getElementById("sorpresa").href =
+  "https://tagjunior91.github.io/Sorpresa/";
 
 // LOAD
 function loadAll(){
