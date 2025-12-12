@@ -309,7 +309,7 @@ document.getElementById("lettereLink").href =
 
 // SPOTIFY LINK (per pulsante esterno opzionale)
 document.getElementById("thunkLink").href =
-  "https://open.spotify.com/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=Dxop7uvOTv6HR";
+  "https://x.thunkable.com/copy/TUO_LINK_APP";
 
 document.getElementById("githubLink").href =
   "https://tagjunior91.github.io/Sorpresa/";
