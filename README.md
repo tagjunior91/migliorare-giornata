@@ -57,7 +57,7 @@
 <!-- LOGIN -->
 <div id="login">
   <h2>Accedi ❤️</h2>
-  <input type="password" id="password" placeholder="Inserisci la password">
+  <input type="password" id="password" placeholder="felice2025">
   <button onclick="checkPassword()">Entra</button>
 </div>
 
