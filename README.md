@@ -158,7 +158,7 @@ footer{
 <!-- ALTRI LINK -->
 <div class="card">
   <h3>Link esterni</h3>
-  <a id="thunkLink" class="link-btn" target="_blank">App Thunkable</a><br>
+  <a id="thunkLink" class="link-btn" target="_blank">La tua APP</a><br>
   <a id="githubLink" class="link-btn" target="_blank">Sorpresa</a>
 </div>
 
@@ -268,7 +268,7 @@ document.getElementById("thunkLink").href =
   "https://x.thunkable.com/copy/TUO_LINK_APP";
 
 document.getElementById("githubLink").href =
-  "https://yourusername.github.io/tuo-repo/](https://tagjunior91.github.io/Sorpresa/";
+  "https://tagjunior91.github.io/Sorpresa/";
 
 // LOAD
 function loadAll(){
