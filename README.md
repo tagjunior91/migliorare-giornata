@@ -265,7 +265,7 @@ document.getElementById("lettereLink").href =
   "https://drive.google.com/drive/folders/1ZxZPDbCzWZsZFGBij3gNMklj_JG21jsU?usp=drive_link";
 
 document.getElementById("thunkLink").href =
-  "https://x.thunkable.com/copy/TUO_LINK_APP";
+  "https://x.thunkable.com/projects/63e95a440d81be1e64c70fc8/6c7f23d1-783a-43f7-b02f-ce20de85a754/designer";
 
 document.getElementById("githubLink").href =
   "https://tagjunior91.github.io/Sorpresa/";
