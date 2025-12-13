@@ -122,7 +122,7 @@ footer{
 <!-- SPOTIFY PRIVATO -->
 <div class="card">
   <h3>🎧 Playlist Spotify</h3>
-  <a href="IL_TUO_LINK_SPOTIFY" target="_blank"
+  <a href="I[L_TUO_LINK_SPOTIFY](https://open.spotify.com/embed/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=)" target="_blank"
      style="display:inline-block;padding:14px 20px;border-radius:12px;
             background:#1DB954;color:white;font-weight:bold;
             text-decoration:none;">
@@ -259,16 +259,16 @@ document.getElementById("saveNotes").addEventListener("click", ()=>{
 
 // LINK
 document.getElementById("fotoLink").href =
-  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_FOTO?usp=sharing";
+  "https://drive.google.com/drive/folders/11IZbIpJGcTMsjpHyZg9FOJdC48BVHKd-?usp=drive_link";
 
 document.getElementById("lettereLink").href =
-  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_LETTERE?usp=sharing";
+  "https://drive.google.com/drive/folders/1ZxZPDbCzWZsZFGBij3gNMklj_JG21jsU?usp=drive_link";
 
 document.getElementById("thunkLink").href =
   "https://x.thunkable.com/copy/TUO_LINK_APP";
 
 document.getElementById("githubLink").href =
-  "https://yourusername.github.io/tuo-repo/";
+  "[https://yourusername.github.io/tuo-repo/](https://tagjunior91.github.io/Sorpresa/)";
 
 // LOAD
 function loadAll(){
