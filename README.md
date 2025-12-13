@@ -53,15 +53,15 @@ button{
 }
 .card{
   background:rgba(255,255,255,0.04);
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:16px;
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:18px;
 }
 .chat-window{
-  height:200px;
+  height:220px;
   overflow:auto;
   border:1px solid #444;
-  border-radius:8px;
+  border-radius:10px;
   padding:10px;
   margin-bottom:8px;
   background:#0b1220;
@@ -85,17 +85,12 @@ button{
   gap:6px;
 }
 .controls input{ flex:1 }
-.docs-list img{
-  max-width:100%;
-  border-radius:8px;
-  margin-top:6px;
-}
 .link-btn{
   display:inline-block;
   background:#111827;
-  padding:10px 14px;
+  padding:12px 16px;
   margin:6px 0;
-  border-radius:8px;
+  border-radius:10px;
   color:white;
   text-decoration:none;
 }
@@ -127,9 +122,8 @@ footer{
 <!-- SPOTIFY PRIVATO -->
 <div class="card">
   <h3>🎧 Playlist Spotify</h3>
-  <a href="[IL_TUO_LINK_SPOTIFY" target=](https://open.spotify.com/embed/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=
-)"_blank"
-     style="display:inline-block;padding:14px 18px;border-radius:10px;
+  <a href="IL_TUO_LINK_SPOTIFY" target="_blank"
+     style="display:inline-block;padding:14px 20px;border-radius:12px;
             background:#1DB954;color:white;font-weight:bold;
             text-decoration:none;">
     ▶️ Ascolta su Spotify
@@ -150,16 +144,8 @@ footer{
 <!-- NOTE -->
 <div class="card">
   <h3>Note condivise</h3>
-  <textarea id="sharedNotes" placeholder="Scrivi qui..."></textarea>
+  <textarea id="sharedNotes" rows="6" placeholder="Scrivi qui..."></textarea>
   <button id="saveNotes">Salva note</button>
-</div>
-
-<!-- DOCUMENTI LOCALI -->
-<div class="card">
-  <h3>Cartacei locali</h3>
-  <input id="fileInput" type="file" accept="image/*">
-  <button id="addTextDoc">Aggiungi lettera</button>
-  <div id="docs" class="docs-list"></div>
 </div>
 
 <!-- GOOGLE DRIVE -->
@@ -190,12 +176,12 @@ const app = document.getElementById("app");
 const pwInput = document.getElementById("pwInput");
 
 document.getElementById("pwTry").addEventListener("click", tryPassword);
-pwInput.addEventListener("keyup", (e)=>{ if(e.key==="Enter") tryPassword(); });
+pwInput.addEventListener("keyup", e => { if(e.key==="Enter") tryPassword(); });
 
 function tryPassword(){
-  if(pwInput.value.trim()===SITE_PASSWORD){
-    overlay.style.display="none";
-    app.style.display="block";
+  if(pwInput.value.trim() === SITE_PASSWORD){
+    overlay.style.display = "none";
+    app.style.display = "block";
     loadAll();
   } else {
     alert("Password errata");
@@ -205,20 +191,45 @@ function tryPassword(){
 // CHAT
 const chatEl = document.getElementById("chat");
 const chatInput = document.getElementById("chatInput");
-const sendBtn = document.getElementById("sendBtn");
 
 const BOT_MESSAGES = [
   "Respira. Sei più forte di quanto pensi.",
   "Un passo alla volta. Ce la farai.",
-  "Anche oggi è una vittoria."
+  "Va bene anche fermarsi un momento.",
+  "Non devi risolvere tutto oggi.",
+  "Quello che senti ha senso.",
+  "Sei più resiliente di quanto immagini.",
+  "Anche questo passerà.",
+  "Non sei solo.",
+  "Concediti gentilezza.",
+  "Stai facendo del tuo meglio.",
+  "Sei abbastanza così come sei.",
+  "Ricorda quante volte ce l’hai già fatta.",
+  "Meriti serenità.",
+  "Una cosa alla volta.",
+  "Respira ancora.",
+  "Il tuo valore non dipende da oggi.",
+  "Domani è un nuovo inizio.",
+  "Piccoli passi contano.",
+  "Non sei in ritardo.",
+  "Anche il silenzio cura."
 ];
 
-sendBtn.addEventListener("click", sendMessage);
-chatInput.addEventListener("keyup", (e)=>{ if(e.key==="Enter") sendMessage(); });
+let botPool = [];
+
+function getRandomBotMessage(){
+  if(botPool.length === 0){
+    botPool = [...BOT_MESSAGES];
+  }
+  const i = Math.floor(Math.random() * botPool.length);
+  return botPool.splice(i,1)[0];
+}
+
+document.getElementById("sendBtn").addEventListener("click", sendMessage);
+chatInput.addEventListener("keyup", e => { if(e.key==="Enter") sendMessage(); });
 
 document.getElementById("cheerBtn").addEventListener("click", ()=>{
-  const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-  addMsg("bot", r);
+  addMsg("bot", getRandomBotMessage());
 });
 
 function sendMessage(){
@@ -227,12 +238,11 @@ function sendMessage(){
   addMsg("me", text);
   chatInput.value="";
   setTimeout(()=>{
-    const r = BOT_MESSAGES[Math.floor(Math.random()*BOT_MESSAGES.length)];
-    addMsg("bot", r);
-  },500);
+    addMsg("bot", getRandomBotMessage());
+  },600);
 }
 
-function addMsg(who,text){
+function addMsg(who, text){
   const div = document.createElement("div");
   div.className = "msg " + who;
   div.textContent = text;
@@ -247,78 +257,22 @@ document.getElementById("saveNotes").addEventListener("click", ()=>{
   alert("Note salvate");
 });
 
-// DOCUMENTI
-const docsEl = document.getElementById("docs");
-const fileInput = document.getElementById("fileInput");
-const addTextDocBtn = document.getElementById("addTextDoc");
-
-fileInput.addEventListener("change", (e)=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  const reader = new FileReader();
-  reader.onload = ()=>{
-    addDoc({type:"image",name:f.name,data:reader.result});
-    fileInput.value="";
-  };
-  reader.readAsDataURL(f);
-});
-
-addTextDocBtn.addEventListener("click", ()=>{
-  const t = prompt("Incolla il testo della lettera:");
-  if(!t) return;
-  addDoc({type:"letter",name:"lettera-"+Date.now(),text:t});
-});
-
-function addDoc(doc){
-  const arr = JSON.parse(localStorage.getItem("mg_docs")||"[]");
-  arr.push(doc);
-  localStorage.setItem("mg_docs",JSON.stringify(arr));
-  renderDocs();
-}
-
-function renderDocs(){
-  const arr = JSON.parse(localStorage.getItem("mg_docs")||"[]");
-  docsEl.innerHTML = "";
-  arr.forEach((d)=>{
-    const wrapper = document.createElement("div");
-    wrapper.style.marginBottom = "10px";
-
-    const meta = document.createElement("div");
-    meta.textContent = d.name + " • " + d.type;
-    wrapper.appendChild(meta);
-
-    if(d.type==="image"){
-      const img = document.createElement("img");
-      img.src = d.data;
-      wrapper.appendChild(img);
-    }else{
-      const p = document.createElement("pre");
-      p.textContent = d.text;
-      wrapper.appendChild(p);
-    }
-
-    docsEl.appendChild(wrapper);
-  });
-}
-
-// GOOGLE DRIVE - INSERISCI I TUOI ID
+// LINK
 document.getElementById("fotoLink").href =
-  "https://drive.google.com/drive/folders/11IZbIpJGcTMsjpHyZg9FOJdC48BVHKd-?usp=drive_link";
+  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_FOTO?usp=sharing";
 
 document.getElementById("lettereLink").href =
-  "https://drive.google.com/drive/folders/1ZxZPDbCzWZsZFGBij3gNMklj_JG21jsU?usp=drive_link";
+  "https://drive.google.com/drive/folders/INSERISCI_ID_CARTELLA_LETTERE?usp=sharing";
 
-// LINK ESTERNI
 document.getElementById("thunkLink").href =
   "https://x.thunkable.com/copy/TUO_LINK_APP";
 
-document.getElementById("sorpresa").href =
-  "https://tagjunior91.github.io/Sorpresa/";
+document.getElementById("githubLink").href =
+  "https://yourusername.github.io/tuo-repo/";
 
 // LOAD
 function loadAll(){
   notesEl.value = localStorage.getItem("mg_notes") || "";
-  renderDocs();
 }
 </script>
 
