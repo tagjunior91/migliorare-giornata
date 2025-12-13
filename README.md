@@ -122,7 +122,7 @@ footer{
 <!-- SPOTIFY PRIVATO -->
 <div class="card">
   <h3>🎧 Playlist Spotify</h3>
-  <a href="I[L_TUO_LINK_SPOTIFY](https://open.spotify.com/embed/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=)" target="_blank"
+  <a href="https://open.spotify.com/embed/playlist/3QnJM3537623iJIjKazwwS?si=8hMXGWbwTpGceuNT2J-vhA&pi=" target="_blank"
      style="display:inline-block;padding:14px 20px;border-radius:12px;
             background:#1DB954;color:white;font-weight:bold;
             text-decoration:none;">
@@ -159,7 +159,7 @@ footer{
 <div class="card">
   <h3>Link esterni</h3>
   <a id="thunkLink" class="link-btn" target="_blank">App Thunkable</a><br>
-  <a id="githubLink" class="link-btn" target="_blank">Sito GitHub</a>
+  <a id="githubLink" class="link-btn" target="_blank">Sorpresa</a>
 </div>
 
 <footer>
@@ -268,7 +268,7 @@ document.getElementById("thunkLink").href =
   "https://x.thunkable.com/copy/TUO_LINK_APP";
 
 document.getElementById("githubLink").href =
-  "[https://yourusername.github.io/tuo-repo/](https://tagjunior91.github.io/Sorpresa/)";
+  "https://yourusername.github.io/tuo-repo/](https://tagjunior91.github.io/Sorpresa/";
 
 // LOAD
 function loadAll(){
