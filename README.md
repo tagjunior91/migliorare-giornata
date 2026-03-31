@@ -170,7 +170,7 @@ footer{
 
 <script>
 // PASSWORD
-const SITE_PASSWORD = "felice2025";
+const SITE_PASSWORD = "1989";
 const overlay = document.getElementById("pwOverlay");
 const app = document.getElementById("app");
 const pwInput = document.getElementById("pwInput");
